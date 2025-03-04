@@ -23,6 +23,12 @@
       "username": "faisll",
       "email": "hiii@gmail.com",
       "password": "123"
+    },
+    {
+      "id": "c150",
+      "username": "faisll",
+      "email": "new@gmai.com",
+      "password": "abcd"
     }
   ],
   "products": [
