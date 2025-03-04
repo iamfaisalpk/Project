@@ -30,7 +30,7 @@ const Login = () => {
                 return;
             }
 
-            login();  // Perform login action (this may also store user info in localStorage)
+            login();  
             localStorage.setItem("user", JSON.stringify(user));  
             navigate("/home");
         } catch (error) {
