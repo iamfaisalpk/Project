@@ -1,0 +1,434 @@
+{
+  "user": [
+    {
+      "id": "6aa9",
+      "username": "hiii",
+      "email": "hii@gmail.com",
+      "password": "hii"
+    },
+    {
+      "id": "986d",
+      "username": "create",
+      "email": "create@gmail.com",
+      "password": "create"
+    },
+    {
+      "id": "a535",
+      "username": "d",
+      "email": "create@gmail.com",
+      "password": "errsss"
+    },
+    {
+      "id": "d8ed",
+      "username": "faisll",
+      "email": "hiii@gmail.com",
+      "password": "123"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Sneakers 2025",
+      "brand": "Sneakers",
+      "price": 150,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Sports",
+      "image": "https://m.media-amazon.com/images/I/51MkgNKHQGL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Lightweight and comfortable running shoes."
+    },
+    {
+      "id": "2",
+      "name": "Adidas Ultraboost Pro",
+      "brand": "Adidas",
+      "price": 180,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/51N91AA3okL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Energy-returning cushioning for long runs."
+    },
+    {
+      "id": "3",
+      "name": "Puma RS-X Future",
+      "brand": "Puma",
+      "price": 140,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/81Wu69zbe+L._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Stylish sneakers for everyday wear."
+    },
+    {
+      "id": "4",
+      "name": "Reebok Classic Leather",
+      "brand": "Reebok",
+      "price": 120,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/61jt+qIdG3L._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Timeless design with a premium leather upper."
+    },
+    {
+      "id": "5",
+      "name": "Under Armour HOVR Phantom 2",
+      "brand": "Under Armour",
+      "price": 160,
+      "size": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/71O6djFBtsL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Responsive cushioning with a sleek design."
+    },
+    {
+      "id": "6",
+      "name": "New Balance 327",
+      "brand": "New Balance",
+      "price": 130,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/71R4kZ0+ItL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Retro-inspired silhouette with modern comfort."
+    },
+    {
+      "id": "7",
+      "name": "Converse Chuck Taylor All-Star",
+      "brand": "Converse",
+      "price": 70,
+      "size": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/714R3ti24pL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Classic canvas sneakers for everyday wear."
+    },
+    {
+      "id": "8",
+      "name": "Vans Old Skool",
+      "brand": "Vans",
+      "price": 75,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/613ole6c-IL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Signature skateboarding shoe with a timeless design."
+    },
+    {
+      "id": "9",
+      "name": "Asics Gel-Kayano 28",
+      "brand": "Asics",
+      "price": 170,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/619cJkmFIVL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Advanced stability and support for long-distance running."
+    },
+    {
+      "id": "10",
+      "name": "Nike Jordan 1 Retro High",
+      "brand": "Nike",
+      "price": 200,
+      "size": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Basketball",
+      "image": "https://m.media-amazon.com/images/I/61qaw8YbpZL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Iconic high-top sneaker for basketball lovers."
+    },
+    {
+      "id": "11",
+      "name": "Adidas NMD R1",
+      "brand": "Adidas",
+      "price": 150,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/61KaL+L5tmL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Modern urban sneaker with responsive cushioning."
+    },
+    {
+      "id": "12",
+      "name": "Puma Clyde Court",
+      "brand": "Puma",
+      "price": 130,
+      "size": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Basketball",
+      "image": "https://m.media-amazon.com/images/I/61r9oNywMeL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Performance basketball shoes with a classic look."
+    }
+  ],
+  "womens": [
+    {
+      "id": "1",
+      "name": "Sneakers 2025",
+      "brand": "Sneakers",
+      "price": 150,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Sports",
+      "image": "https://m.media-amazon.com/images/I/8160qTc8+lL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Lightweight and comfortable running shoes."
+    },
+    {
+      "id": "2",
+      "name": "Adidas Ultraboost Pro",
+      "brand": "Adidas",
+      "price": 180,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/71jjvGbHqfL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Energy-returning cushioning for long runs."
+    },
+    {
+      "id": "3",
+      "name": "Puma RS-X Future",
+      "brand": "Puma",
+      "price": 140,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/71UbxjqxjwL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Stylish sneakers for everyday wear."
+    },
+    {
+      "id": "4",
+      "name": "Reebok Classic Leather",
+      "brand": "Reebok",
+      "price": 120,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/71qDb454oqL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Timeless design with a premium leather upper."
+    },
+    {
+      "id": "5",
+      "name": "Under Armour HOVR Phantom 2",
+      "brand": "Under Armour",
+      "price": 160,
+      "size": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/61oewOzNIuL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Responsive cushioning with a sleek design."
+    },
+    {
+      "id": "6",
+      "name": "New Balance 327",
+      "brand": "New Balance",
+      "price": 130,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/61d9XY07XoL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Retro-inspired silhouette with modern comfort."
+    },
+    {
+      "id": "7",
+      "name": "Converse Chuck Taylor All-Star",
+      "brand": "Converse",
+      "price": 70,
+      "size": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/719GFh7bZvL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Classic canvas sneakers for everyday wear."
+    },
+    {
+      "id": "8",
+      "name": "Vans Old Skool",
+      "brand": "Vans",
+      "price": 75,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/61XrCE4oLLS._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Signature skateboarding shoe with a timeless design."
+    },
+    {
+      "id": "9",
+      "name": "Asics Gel-Kayano 28",
+      "brand": "Asics",
+      "price": 170,
+      "size": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Running",
+      "image": "https://m.media-amazon.com/images/I/61yJoZJvV8L._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Advanced stability and support for long-distance running."
+    },
+    {
+      "id": "10",
+      "name": "Nike Jordan 1 Retro High",
+      "brand": "Nike",
+      "price": 200,
+      "size": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Basketball",
+      "image": "https://m.media-amazon.com/images/I/51c3BJ-vHbL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Iconic high-top sneaker for basketball lovers."
+    },
+    {
+      "id": "11",
+      "name": "Adidas NMD R1",
+      "brand": "Adidas",
+      "price": 150,
+      "size": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "category": "Casual",
+      "image": "https://m.media-amazon.com/images/I/61-CyJbM7SL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Modern urban sneaker with responsive cushioning."
+    },
+    {
+      "id": "12",
+      "name": "Puma Clyde Court",
+      "brand": "Puma",
+      "price": 130,
+      "size": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "category": "Basketball",
+      "image": "https://m.media-amazon.com/images/I/71OhPni7qQL._AC_UL480_FMwebp_QL65_.jpg",
+      "description": "Performance basketball shoes with a classic look."
+    }
+  ]
+}
