@@ -5,6 +5,7 @@ import img from "../HomeSection3/5tT3VQh0_400x400-removebg-preview.png";
 import axios from "axios";
 import { useCart } from "../Cart/CartContext";
 
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
