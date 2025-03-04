@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const { login, logout } = useCart();  // Make sure `logout` is available in your context
+    const { login, logout } = useCart();  
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -31,7 +31,7 @@ const Login = () => {
             }
 
             login();  // Perform login action (this may also store user info in localStorage)
-            localStorage.setItem("user", JSON.stringify(user));  // Store user data in localStorage (optional)
+            localStorage.setItem("user", JSON.stringify(user));  
             navigate("/home");
         } catch (error) {
             console.error("Error logging in:", error);
