@@ -12,24 +12,27 @@ import Cart from './assets/Cart/CartPage';
 import ProductDetails from './assets/Navbar-Component/ProductDetails';
 import Payment from './assets/PaymentSection/Payment';
 import OrderConfirmed from './assets/PaymentSection/OrderConfirmed';
-
+import OrderHistory from './assets/Order/OrderHistory';
+import UserProfile from './assets/UserProfile/UserProfile';
 
 const router = createBrowserRouter([
     {
-        path: '',
+        path: '/',
         element: <Layout />,
         errorElement: <Error />,
         children: [
             { path: '/home', element: <Home /> },
             { path: '/login', element: <Login /> },
-            { path: '/Reg', element: <Register /> },
+            { path: '/Reg', element: <Register /> },  
             { path: '/men', element: <Men /> },
             { path: '/women', element: <Women /> },
             { path: '/products', element: <ProductList /> },
             { path: '/products/:id', element: <ProductDetails /> },
             { path: '/cart', element: <Cart /> },
             { path: '/payment', element: <Payment /> }, 
-            { path: '/order', element: <OrderConfirmed /> }, 
+            { path: '/order', element: <OrderConfirmed /> },
+            { path: '/profile', element: <UserProfile /> }, 
+            { path: '/orders', element: <OrderHistory /> }  
         ],
     },
 ]);

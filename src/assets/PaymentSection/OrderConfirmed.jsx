@@ -1,36 +1,53 @@
-import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useCart } from '../Cart/CartContext';
+import React, { useEffect } from "react";
+import { useCart } from "../Cart/CartContext";
+import { useNavigate } from "react-router-dom"; // To redirect after confirmation
 
-const OrderConfirmed = () => {
-    const { setCart } = useCart(); // Get setCart function from context
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const totalPrice = queryParams.get('total') || "0.00";
+const OrderConfirm = () => {
+    const { cart, buyProducts, isLoggedIn } = useCart();
+    const navigate = useNavigate();
 
-    // Clear cart after order confirmation
     useEffect(() => {
-        setCart([]); // Clear cart state
-        localStorage.removeItem('cart'); // Remove cart from local storage
-    }, [setCart]);
+        if (cart.length === 0) {
+            navigate("/home");
+        }
+    }, [cart, navigate]);
+
+    const handlePurchase = () => {
+        buyProducts();
+        // After purchase, redirect to the Order History page
+        navigate("/profile/orders");
+    };
+
+    if (!isLoggedIn) {
+        return <p>Please login to confirm your order.</p>;
+    }
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-md text-center">
-                <h1 className="text-3xl font-bold text-green-600 mb-4">Order Confirmed!</h1>
-                <p className="text-lg text-gray-700 mb-2">Thank you for your purchase.</p>
-                <p className="text-lg font-semibold text-gray-900 mb-6">
-                    Total Paid: <span className="text-green-600">${totalPrice}</span>
+        <div className="p-6 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">Order Confirmation</h2>
+            <div className="mb-6">
+                <h3 className="text-xl font-semibold">Review Your Order:</h3>
+                <ul className="list-disc pl-5">
+                    {cart.map((item) => (
+                        <li key={item.id} className="my-2">
+                            {item.name} - {item.quantity} x ${item.price.toFixed(2)} (Total: ${(item.quantity * item.price).toFixed(2)})
+                        </li>
+                    ))}
+                </ul>
+                <p className="font-bold mt-4">
+                    Total Amount: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
                 </p>
-                <Link
-                    to="/home"
-                    className="bg-green-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
+            </div>
+            <div>
+                <button
+                    onClick={handlePurchase}
+                    className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
                 >
-                    Back to Home
-                </Link>
+                    Confirm Purchase
+                </button>
             </div>
         </div>
     );
 };
 
-export default OrderConfirmed;
+export default OrderConfirm;

@@ -7,33 +7,15 @@
       "password": "hii"
     },
     {
-      "id": "986d",
-      "username": "create",
-      "email": "create@gmail.com",
-      "password": "create"
-    },
-    {
-      "id": "a535",
-      "username": "d",
-      "email": "create@gmail.com",
-      "password": "errsss"
-    },
-    {
-      "id": "d8ed",
-      "username": "faisll",
-      "email": "hiii@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "c150",
-      "username": "faisll",
-      "email": "new@gmai.com",
-      "password": "abcd"
-    },
-    {
-      "id": "1075",
+      "id": "28d8",
       "username": "faisll",
       "email": "faisll@gmail.com",
+      "password": "faa"
+    },
+    {
+      "id": "34b7",
+      "username": "faisll",
+      "email": "faa@gmail.com",
       "password": "faa"
     }
   ],
@@ -442,6 +424,5 @@
       "image": "https://m.media-amazon.com/images/I/71OhPni7qQL._AC_UL480_FMwebp_QL65_.jpg",
       "description": "Performance basketball shoes with a classic look."
     }
-  ],
-  "orders": []
+  ]
 }

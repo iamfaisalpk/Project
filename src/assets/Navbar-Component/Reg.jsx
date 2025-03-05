@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import img from "../HomeSection3/5tT3VQh0_400x400-removebg-preview.png";
 import axios from "axios";
 
 const Register = () => {
@@ -41,9 +40,6 @@ const Register = () => {
 
     return (
         <>
-            {/* <div className="relative flex justify-center">
-                <img src={img} alt="logo" className="w-[200px]" />
-            </div> */}
             <div className="container px-5 py-24 mx-auto flex">
                 <div className="bg-orange-400 rounded-lg p-8 flex flex-col mx-auto mt-8 md:mt-0 shadow-md text-white w-[500px]">
                     <h2 className="text-white text-4xl mb-5 font-medium title-font">Sign up</h2>
