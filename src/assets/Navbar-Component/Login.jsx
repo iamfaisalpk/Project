@@ -40,9 +40,9 @@ const Login = () => {
     };
 
     const handleLogout = () => {
-        logout();  // Call logout from context
-        localStorage.removeItem("user");  // Remove user data from localStorage
-        navigate("/login");  // Navigate the user to login page
+        logout();  
+        localStorage.removeItem("user");  
+        navigate("/login");  
     };
 
     return (
