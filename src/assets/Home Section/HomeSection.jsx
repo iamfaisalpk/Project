@@ -6,11 +6,11 @@ const HomeSection = () => {
 return (
     <>
     <div className="relative">
-        <div className="pl-[20px] pb-[20px] pr-[20px]">
+        <div className="pl-[20px] pb-[20px] pr-[20px] pt-[20px]">
             <img src={banner} alt="Photo" className="w-[1250px] h-[560px] object-cover object-center" />
         </div>
 
-        <div className="absolute top-[40px] left-[40px] sm:absolute ">
+        <div className="absolute top-[50px] left-[40px] sm:absolute ">
             <h1 className="text-[80px] font-bold text-black leading-[80px]">
                 YOUR FEET<br/>DESERVE<br/>THE BEST
             </h1>

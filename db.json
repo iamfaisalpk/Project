@@ -29,6 +29,12 @@
       "username": "faisll",
       "email": "new@gmai.com",
       "password": "abcd"
+    },
+    {
+      "id": "1075",
+      "username": "faisll",
+      "email": "faisll@gmail.com",
+      "password": "faa"
     }
   ],
   "products": [
@@ -436,5 +442,6 @@
       "image": "https://m.media-amazon.com/images/I/71OhPni7qQL._AC_UL480_FMwebp_QL65_.jpg",
       "description": "Performance basketball shoes with a classic look."
     }
-  ]
+  ],
+  "orders": []
 }

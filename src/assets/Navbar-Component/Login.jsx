@@ -40,9 +40,9 @@ const Login = () => {
     };
 
     const handleLogout = () => {
-        logout();  
-        localStorage.removeItem("user");  
-        navigate("/login");  
+        logout();  // Call logout from context
+        localStorage.removeItem("user");  // Remove user data from localStorage
+        navigate("/login");  // Navigate the user to login page
     };
 
     return (
@@ -96,12 +96,12 @@ const Login = () => {
                         </Link>
                     </p>
 
-                    {/* <button
+                    <button
                         onClick={handleLogout}
                         className="text-white cursor-pointer bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg mt-3"
                     >
                         Logout
-                    </button> */}
+                    </button>
                 </div>
             </div>
         </>

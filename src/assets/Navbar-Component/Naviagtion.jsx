@@ -97,9 +97,6 @@ const Naviagation = () => {
                     )}
                 </div>
             </nav>
-            <marquee behavior="alternate" direction="right" scrollamount="10">
-                text
-            </marquee>
         </header>
     );
 };

@@ -41,9 +41,9 @@ const Register = () => {
 
     return (
         <>
-            <div className="relative flex justify-center">
+            {/* <div className="relative flex justify-center">
                 <img src={img} alt="logo" className="w-[200px]" />
-            </div>
+            </div> */}
             <div className="container px-5 py-24 mx-auto flex">
                 <div className="bg-orange-400 rounded-lg p-8 flex flex-col mx-auto mt-8 md:mt-0 shadow-md text-white w-[500px]">
                     <h2 className="text-white text-4xl mb-5 font-medium title-font">Sign up</h2>
