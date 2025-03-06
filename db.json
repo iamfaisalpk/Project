@@ -425,5 +425,24 @@
       "description": "Performance basketball shoes with a classic look."
     }
   ],
-  "addresses":[]
+  "addresses": [
+    {
+      "id": "1",
+      "userId": "6aa9",
+      "street": "123 Main Street",
+      "city": "Kottakkal",
+      "state": "Kerala",
+      "zip": "676503",
+      "country": "India"
+    },
+    {
+      "id": "2",
+      "userId": "28d8",
+      "street": "456 Another Road",
+      "city": "Malappuram",
+      "state": "Kerala",
+      "zip": "676504",
+      "country": "India"
+    }
+]
 }

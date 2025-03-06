@@ -19,14 +19,20 @@ const OrderConfirm = () => {
     useEffect(() => {
         axios.get("http://localhost:3000/addresses")
             .then((response) => {
-                setAddresses(response.data);
+                if (response.data && response.data.length > 0) {
+                    setAddresses(response.data);
+                } else {
+                    setError("No addresses found.");
+                }
                 setLoading(false);
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error(err);
                 setError("Failed to load addresses. Please try again.");
                 setLoading(false);
             });
     }, []);
+    
 
     useEffect(() => {
         if (cart.length === 0) {
@@ -145,39 +151,63 @@ const OrderConfirm = () => {
                             <label className="block font-medium">Enter a New Address:</label>
                             <input
                                 type="text"
-                                value={newAddress.addressType}
-                                onChange={(e) => setNewAddress({ ...newAddress, addressType: e.target.value })}
-                                placeholder="Enter Address Type (e.g., Home, Office)"
+                                value={newAddress.address}
+                                onChange={(e) => setNewAddress({ ...newAddress, address: e.target.value })}
+                                placeholder="Enter Address"
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
                             />
-                            <div className="flex items-center">
+                            <input
+                                type="number"
+                                value={newAddress.phone}
+                                onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
+                                placeholder="Enter Phone Number"
+                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
+                            />
+                            <input
+                                type="text"
+                                value={newAddress.homeName}
+                                onChange={(e) => setNewAddress({ ...newAddress, homeName: e.target.value })}
+                                placeholder="Enter Home Name (e.g., Flat 101)"
+                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
+                            />
+                            <select
+                                value={newAddress.addressType}
+                                onChange={(e) => setNewAddress({ ...newAddress, addressType: e.target.value })}
+                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
+                            >
+                                <option value="">Select Address Type</option>
+                                <option value="Home">Home</option>
+                                <option value="Office">Office</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <div className="flex items-center mb-4">
                                 <input
                                     type="checkbox"
                                     checked={newAddress.isDefault}
                                     onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
                                     className="mr-2"
                                 />
-                                <label className="text-sm">Set as Default Address</label>
+                                <label className="text-gray-700">Set as Default Address</label>
                             </div>
-                            {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
+
+                            {formError && <p className="text-red-500">{formError}</p>}
                             <button
                                 onClick={handleSaveAddress}
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+                                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
                             >
-                                {editMode ? "Update Address" : "Save Address"}
+                                {editMode ? "Save Address" : "Add New Address"}
                             </button>
                         </div>
                     </div>
 
-                    {/* Action Section */}
-                    <div className="mt-6">
-                        <button
-                            onClick={handlePurchase}
-                            className="px-6 py-3 bg-green-500 text-white rounded-lg"
-                        >
-                            Confirm Order
-                        </button>
-                    </div>
+                    {/* Purchase Confirmation */}
+                    <button
+                        onClick={handlePurchase}
+                        className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition mt-4"
+                    >
+                        Confirm Purchase
+                    </button>
                 </>
             )}
         </div>
@@ -185,4 +215,3 @@ const OrderConfirm = () => {
 };
 
 export default OrderConfirm;
-

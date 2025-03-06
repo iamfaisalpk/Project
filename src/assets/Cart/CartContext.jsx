@@ -7,7 +7,8 @@ export const CartProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
-    
+    const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+    const [products, setProducts] = useState([]); // New state for all products (you can fetch this from an API or pass it as a prop)
 
     // Function to safely parse JSON from localStorage
     const safeParseJSON = (key) => {
@@ -41,15 +42,19 @@ export const CartProvider = ({ children }) => {
             return;
         }
 
-        const existingProduct = cart.find((item) => item.id === product.id);
+        const existingProduct = cart.find((item) => item.id === product.id && item.size === product.size);
         let updatedCart;
 
         if (existingProduct) {
+            // If the product already exists in the cart, update its quantity
             updatedCart = cart.map((item) =>
-                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === product.id && item.size === product.size
+                    ? { ...item, quantity: item.quantity + product.quantity }
+                    : item
             );
         } else {
-            updatedCart = [...cart, { ...product, quantity: 1 }];
+            // If the product is not in the cart, add it with the selected quantity
+            updatedCart = [...cart, { ...product, quantity: product.quantity }];
         }
 
         saveCartToStorage(updatedCart);
@@ -136,6 +141,14 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
     };
 
+    // Cart count (total number of items in the cart)
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+    // Filter products based on search term
+    const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <CartContext.Provider
             value={{
@@ -151,6 +164,12 @@ export const CartProvider = ({ children }) => {
                 updateUserProfile,
                 userInfo,
                 setCart,
+                cartCount,
+                searchTerm, // Provide search term to components
+                setSearchTerm, // Allow components to update search term
+                products, // Provide all products to components
+                setProducts, // Allow components to update products
+                filteredProducts, // Provide filtered
             }}
         >
             {children}

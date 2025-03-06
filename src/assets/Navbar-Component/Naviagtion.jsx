@@ -5,7 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useState } from 'react';
 import { useCart } from '../Cart/CartContext';
 
-const Navigation = () => {
+const Navigation = ({ setSearchQuery }) => {  // Adding setSearchQuery as a prop
     const [open, setOpen] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const { isLoggedIn, logout, cart, userInfo } = useCart();
@@ -13,10 +13,13 @@ const Navigation = () => {
     const toggleMenu = () => setOpen(!open);
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);  // Pass the search query to parent component
+    };
+
     return (
         <header>
             <nav className="bg-black flex justify-between items-center px-4 py-3 relative">
-                {/* Heading Area */}
                 <h1 className="text-[2rem] font-semibold">
                     <Link to="/home">
                         <span className="text-white">Sneakers</span>
@@ -24,14 +27,7 @@ const Navigation = () => {
                     </Link>
                 </h1>
 
-                {/* Hamburger Menu (Visible on mobile) */}
-                <div className="md:hidden">
-                    <button onClick={toggleMenu} className="text-white">
-                        {open ? <RxCross1 size={30} /> : <GiHamburgerMenu size={30} />}
-                    </button>
-                </div>
-
-                {/* Links for larger screens */}
+                
                 <ul className={`list-none md:flex justify-end gap-4 text-white font-semibold mt-3.5 ${open ? 'block' : 'hidden'} md:block`}>
                     <li className="hover:text-orange-400 rounded-[5px] px-2 py-1">
                         <Link to="/home">Home</Link>
@@ -47,11 +43,11 @@ const Navigation = () => {
                     </li>
                 </ul>
 
+                
                 {/* User-related Links */}
                 <div className="list-none flex justify-evenly text-white gap-3 mt-3.5 mr-0 md:mr-[50px] relative">
                     {isLoggedIn ? (
                         <>
-                            {/* User Dropdown */}
                             <div className="relative">
                                 <button
                                     onClick={toggleDropdown}
@@ -60,7 +56,6 @@ const Navigation = () => {
                                     {userInfo?.username || "User"} ▼
                                 </button>
 
-                                {/* Dropdown Menu */}
                                 {showDropdown && (
                                     <div className="absolute right-0 mt-2 w-40 bg-white text-black shadow-md rounded-md z-30">
                                         <ul className="text-center">
@@ -79,14 +74,9 @@ const Navigation = () => {
                             </div>
                         </>
                     ) : (
-                        <>
-                            {/* <li className="bg-orange-400 rounded-[5px] px-3 py-1 hover:bg-amber-600 animate-bounce">
-                                <Link to="/Reg">Create Account</Link>
-                            </li> */}
-                            <li className="hover:bg-orange-400 rounded-[5px] px-3 py-1">
-                                <Link to="/login">Login</Link>
-                            </li>
-                        </>
+                        <li className="hover:bg-orange-400 rounded-[5px] px-3 py-1">
+                            <Link to="/login">Login</Link>
+                        </li>
                     )}
 
                     {/* Shopping Cart */}
@@ -97,16 +87,8 @@ const Navigation = () => {
                             </button>
                         </Link>
                     </li>
-
-                    {/* Checkout (only if cart is not empty) */}
-                    {cart.length > 0 && isLoggedIn && (
-                        <li className="text-orange-400 cursor-pointer">
-                            <Link to="/order">
-                                <button className='cursor-pointer'>Checkout</button>
-                            </Link>
-                        </li>
-                    )}
                 </div>
+                
             </nav>
         </header>
     );

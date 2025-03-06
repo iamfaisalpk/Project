@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '../../assets/3b5b0f5e7976ad878320a3e27f109b74.jpg';
+import banner from '../Home Section/shoeaa.png';
 import { Link } from 'react-router-dom';
 
 const HomeSection = () => {
@@ -11,10 +11,10 @@ return (
         </div>
 
         <div className="absolute top-[50px] left-[40px] sm:absolute ">
-            <h1 className="text-[80px] font-bold text-black leading-[80px]">
+            <h1 className="text-[80px] font-bold text-orange-400 leading-[80px]">
                 YOUR FEET<br/>DESERVE<br/>THE BEST
             </h1>
-            <p className="text-white pt-5">
+            <p className="text-white pt-5 font-medium">
             Sneakers are a blend of style and comfort, <br />
             making every step confident. <br />
             Lace up, step out, and make a statement!
