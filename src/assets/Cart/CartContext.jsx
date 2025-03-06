@@ -135,16 +135,16 @@ export const CartProvider = ({ children }) => {
         alert("You have been logged out.");
     };
 
-    // Update user profile info
+    
     const updateUserProfile = (newUserInfo) => {
         setUserInfo(newUserInfo);
         localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
     };
 
-    // Cart count (total number of items in the cart)
+    
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-    // Filter products based on search term
+
     const filteredProducts = products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -165,11 +165,11 @@ export const CartProvider = ({ children }) => {
                 userInfo,
                 setCart,
                 cartCount,
-                searchTerm, // Provide search term to components
-                setSearchTerm, // Allow components to update search term
-                products, // Provide all products to components
-                setProducts, // Allow components to update products
-                filteredProducts, // Provide filtered
+                searchTerm, 
+                setSearchTerm, 
+                products, 
+                setProducts, 
+                filteredProducts, 
             }}
         >
             {children}

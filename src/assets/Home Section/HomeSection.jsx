@@ -7,7 +7,7 @@ return (
     <>
     <div className="relative">
         <div className="pl-[20px] pb-[20px] pr-[20px] pt-[20px]">
-            <img src={banner} alt="Photo" className="w-[1250px] h-[560px] object-cover object-center" />
+            <img src={banner} alt="Photo" className="w-[1250px] h-[560px] object-cover object-center " />
         </div>
 
         <div className="absolute top-[50px] left-[40px] sm:absolute ">
