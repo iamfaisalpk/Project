@@ -21,6 +21,7 @@ return (
             </p>
         </div>
 
+
         <div className="absolute top-[75%] left-[5%] flex gap-5 ">
         <button className="bg-[#ffffff] rounded-[8px] px-2 hover:bg-amber-500 hover:text-white"><Link to = '/men'>Men</Link></button>
         <button className="bg-[#ffffff] rounded-[8px] px-2 hover:bg-amber-500 hover:text-white"><Link to = '/women'>Women</Link></button>
