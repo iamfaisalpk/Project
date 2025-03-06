@@ -9,7 +9,7 @@ const OrderConfirm = () => {
 
     const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState("");
-    const [newAddress, setNewAddress] = useState({ address: "", phone: "", homeName: "", isDefault: false });
+    const [newAddress, setNewAddress] = useState({ address: "", phone: "", homeName: "", addressType: "", isDefault: false });
     const [editMode, setEditMode] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -40,7 +40,13 @@ const OrderConfirm = () => {
             return;
         }
 
+        if (newAddress.phone && !/^\d{10}$/.test(newAddress.phone)) {
+            setFormError("Please enter a valid 10-digit phone number.");
+            return;
+        }
+
         setError(""); // Clear errors
+        setFormError(""); // Clear form errors
 
         // Proceed with purchase
         buyProducts();
@@ -51,7 +57,7 @@ const OrderConfirm = () => {
 
     const handleSaveAddress = () => {
         // Validate the new address form
-        if (!newAddress.address || !newAddress.phone || !newAddress.homeName) {
+        if (!newAddress.address || !newAddress.phone || !newAddress.homeName || !newAddress.addressType) {
             setFormError("Please fill all fields.");
             return;
         }
@@ -69,7 +75,7 @@ const OrderConfirm = () => {
 
         setSelectedAddress(newAddress);
         setEditMode(false);
-        setNewAddress({ address: "", phone: "", homeName: "", isDefault: false });
+        setNewAddress({ address: "", phone: "", homeName: "", addressType: "", isDefault: false });
     };
 
     const handleEditAddress = (address) => {
@@ -118,6 +124,7 @@ const OrderConfirm = () => {
                                             <p className="font-semibold">{addr.homeName}</p>
                                             <p>{addr.address}</p>
                                             <p>{addr.phone}</p>
+                                            <p>{addr.addressType}</p>
                                         </div>
                                         <div>
                                             {addr.isDefault && <span className="text-green-500 font-bold">Default</span>}
@@ -138,53 +145,39 @@ const OrderConfirm = () => {
                             <label className="block font-medium">Enter a New Address:</label>
                             <input
                                 type="text"
-                                value={newAddress.address}
-                                onChange={(e) => setNewAddress({ ...newAddress, address: e.target.value })}
-                                placeholder="Enter Address"
+                                value={newAddress.addressType}
+                                onChange={(e) => setNewAddress({ ...newAddress, addressType: e.target.value })}
+                                placeholder="Enter Address Type (e.g., Home, Office)"
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
                             />
-                            <input
-                                type="text"
-                                value={newAddress.phone}
-                                onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                                placeholder="Enter Phone Number"
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            />
-                            <input
-                                type="text"
-                                value={newAddress.homeName}
-                                onChange={(e) => setNewAddress({ ...newAddress, homeName: e.target.value })}
-                                placeholder="Enter Home Name (e.g., Flat 101)"
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            />
-
-                            <div className="flex items-center mb-4">
+                            <div className="flex items-center">
                                 <input
                                     type="checkbox"
                                     checked={newAddress.isDefault}
                                     onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
                                     className="mr-2"
                                 />
-                                <label className="text-gray-700">Set as Default Address</label>
+                                <label className="text-sm">Set as Default Address</label>
                             </div>
-
-                            {formError && <p className="text-red-500">{formError}</p>}
+                            {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
                             <button
                                 onClick={handleSaveAddress}
-                                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
+                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
                             >
-                                {editMode ? "Save Address" : "Add New Address"}
+                                {editMode ? "Update Address" : "Save Address"}
                             </button>
                         </div>
                     </div>
 
-                    {/* Purchase Confirmation */}
-                    <button
-                        onClick={handlePurchase}
-                        className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition mt-4"
-                    >
-                        Confirm Purchase
-                    </button>
+                    {/* Action Section */}
+                    <div className="mt-6">
+                        <button
+                            onClick={handlePurchase}
+                            className="px-6 py-3 bg-green-500 text-white rounded-lg"
+                        >
+                            Confirm Order
+                        </button>
+                    </div>
                 </>
             )}
         </div>
@@ -192,3 +185,4 @@ const OrderConfirm = () => {
 };
 
 export default OrderConfirm;
+

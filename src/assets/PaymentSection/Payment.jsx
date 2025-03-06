@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../Cart/CartContext'; 
 
 const Payment = () => {
     const { cart } = useCart(); 
+    const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery");
+    const [cardDetails, setCardDetails] = useState({ cardNumber: "", expiry: "", cvv: "" });
+    const [upiId, setUpiId] = useState("");
 
     // Calculate total price
     const totalPrice = cart.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -51,19 +54,90 @@ const Payment = () => {
                                 name="paymentMethod"
                                 value="cashOnDelivery"
                                 className="w-5 h-5"
-                                defaultChecked
+                                checked={paymentMethod === "cashOnDelivery"}
+                                onChange={(e) => setPaymentMethod(e.target.value)}
                             />
                             <label htmlFor="cashOnDelivery" className="ml-2 text-lg">
                                 Cash on Delivery
                             </label>
                         </div>
+                        <div className="flex items-center">
+                            <input
+                                type="radio"
+                                id="creditCard"
+                                name="paymentMethod"
+                                value="creditCard"
+                                className="w-5 h-5"
+                                checked={paymentMethod === "creditCard"}
+                                onChange={(e) => setPaymentMethod(e.target.value)}
+                            />
+                            <label htmlFor="creditCard" className="ml-2 text-lg">
+                                Credit Card
+                            </label>
+                        </div>
+                        {paymentMethod === "creditCard" && (
+                            <div className="mt-4 space-y-2">
+                                <input
+                                    type="text"
+                                    placeholder="Card Number"
+                                    className="w-full p-2 border rounded"
+                                    value={cardDetails.cardNumber}
+                                    onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+                                />
+                                <div className="flex space-x-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Expiry (MM/YY)"
+                                        className="w-1/2 p-2 border rounded"
+                                        value={cardDetails.expiry}
+                                        onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="CVV"
+                                        className="w-1/2 p-2 border rounded"
+                                        value={cardDetails.cvv}
+                                        onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        <div className="flex items-center">
+                            <input
+                                type="radio"
+                                id="gpay"
+                                name="paymentMethod"
+                                value="gpay"
+                                className="w-5 h-5"
+                                checked={paymentMethod === "gpay"}
+                                onChange={(e) => setPaymentMethod(e.target.value)}
+                            />
+                            <label htmlFor="gpay" className="ml-2 text-lg">
+                                Google Pay (GPay)
+                            </label>
+                        </div>
+                        {paymentMethod === "gpay" && (
+                            <div className="mt-4 space-y-2">
+                                <input
+                                    type="text"
+                                    placeholder="Enter UPI ID"
+                                    className="w-full p-2 border rounded"
+                                    value={upiId}
+                                    onChange={(e) => setUpiId(e.target.value)}
+                                />
+                                <p className="text-sm text-gray-600">OR</p>
+                                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                    Scan QR Code
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 {/* Confirm Order Button */}
                 <div className="mt-8 text-center">
                     <Link
-                        to={`/order?total=${totalPrice.toFixed(2)}`}
+                        to={`/order?total=${totalPrice.toFixed(2)}&payment=${paymentMethod}`}
                         className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
                     >
                         Confirm Order (${totalPrice.toFixed(2)})

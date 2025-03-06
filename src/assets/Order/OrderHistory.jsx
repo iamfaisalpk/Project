@@ -4,8 +4,8 @@ import { useCart } from "../Cart/CartContext";
 const OrderHistory = () => {
     const { orders, isLoggedIn } = useCart();
     const [filteredOrders, setFilteredOrders] = useState([]);
-    const [loading, setLoading] = useState(true);  // Loading state
-    const [error, setError] = useState(null);  // Error state
+    const [loading, setLoading] = useState(true);  
+    const [error, setError] = useState(null);  
 
     useEffect(() => {
         if (isLoggedIn) {

@@ -33,16 +33,16 @@ const Navigation = () => {
 
                 {/* Links for larger screens */}
                 <ul className={`list-none md:flex justify-end gap-4 text-white font-semibold mt-3.5 ${open ? 'block' : 'hidden'} md:block`}>
-                    <li className="hover:bg-orange-400 rounded-[5px] px-2 py-1">
+                    <li className="hover:text-orange-400 rounded-[5px] px-2 py-1">
                         <Link to="/home">Home</Link>
                     </li>
-                    <li className="hover:bg-orange-400 rounded-[5px] px-2 py-1">
+                    <li className="hover:text-orange-400 rounded-[5px] px-2 py-1">
                         <Link to="/products">All Products</Link>
                     </li>
-                    <li className="hover:bg-orange-400 rounded-[5px] px-2 py-1">
+                    <li className="hover:text-orange-400 rounded-[5px] px-2 py-1">
                         <Link to="/men">Men</Link>
                     </li>
-                    <li className="hover:bg-orange-400 rounded-[5px] px-2 py-1">
+                    <li className="hover:text-orange-400 rounded-[5px] px-2 py-1">
                         <Link to="/women">Women</Link>
                     </li>
                 </ul>
@@ -55,9 +55,9 @@ const Navigation = () => {
                             <div className="relative">
                                 <button
                                     onClick={toggleDropdown}
-                                    className="text-white font-semibold px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700"
+                                    className="text-white font-semibold px-3 py-1 bg-gray-800 rounded-md hover:bg-gray-700 cursor-pointer"
                                 >
-                                    Welcome, {userInfo?.username || "User"} ▼
+                                    {userInfo?.username || "User"} ▼
                                 </button>
 
                                 {/* Dropdown Menu */}
@@ -80,9 +80,9 @@ const Navigation = () => {
                         </>
                     ) : (
                         <>
-                            <li className="bg-orange-400 rounded-[5px] px-3 py-1 hover:bg-amber-600 animate-bounce">
+                            {/* <li className="bg-orange-400 rounded-[5px] px-3 py-1 hover:bg-amber-600 animate-bounce">
                                 <Link to="/Reg">Create Account</Link>
-                            </li>
+                            </li> */}
                             <li className="hover:bg-orange-400 rounded-[5px] px-3 py-1">
                                 <Link to="/login">Login</Link>
                             </li>
@@ -90,9 +90,9 @@ const Navigation = () => {
                     )}
 
                     {/* Shopping Cart */}
-                    <li className="text-orange-400 cursor-pointer">
+                    <li className="text-orange-400 ">
                         <Link to="/cart">
-                            <button>
+                            <button className='cursor-pointer'>
                                 <FaShoppingCart size={25} />
                             </button>
                         </Link>
@@ -102,7 +102,7 @@ const Navigation = () => {
                     {cart.length > 0 && isLoggedIn && (
                         <li className="text-orange-400 cursor-pointer">
                             <Link to="/order">
-                                <button>Checkout</button>
+                                <button className='cursor-pointer'>Checkout</button>
                             </Link>
                         </li>
                     )}
