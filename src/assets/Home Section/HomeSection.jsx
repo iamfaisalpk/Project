@@ -18,7 +18,6 @@ return (
             Sneakers are a blend of style and comfort, <br />
             making every step confident. <br />
             Lace up, step out, and make a statement!
-
             </p>
         </div>
 
