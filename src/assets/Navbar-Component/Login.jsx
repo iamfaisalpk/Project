@@ -9,16 +9,15 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const { login, logout, updateUserProfile, setCart } = useCart();
+    const { login, isLoggedIn, updateUserProfile, setCart } = useCart();
 
     // Check if user is already logged in and redirect
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-            updateUserProfile(storedUser);
+        if (storedUser && isLoggedIn) {
             navigate("/home");
         }
-    }, [navigate, updateUserProfile]);
+    }, [navigate, isLoggedIn]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -39,8 +38,7 @@ const Login = () => {
             }
 
             // Successful login
-            login();
-            updateUserProfile(user);
+            login(user);
             localStorage.setItem("user", JSON.stringify(user));
 
             // Load user's cart if it exists
@@ -52,14 +50,6 @@ const Login = () => {
             console.error("Error logging in:", error);
             setError("An error occurred. Please try again later.");
         }
-    };
-
-    const handleLogout = () => {
-        logout();
-        localStorage.removeItem("user");
-        localStorage.removeItem("cart");
-        setCart([]); // Clear cart in context
-        navigate("/login");
     };
 
     return (
@@ -101,10 +91,8 @@ const Login = () => {
 
                 <p className="text-xl text-white mt-3">
                     Don't have an account?
-                    <Link to="/reg">
-                        <button className="cursor-pointer text-xl hover:text-black">
-                            Sign up
-                        </button>
+                    <Link to="/reg" className="cursor-pointer text-xl hover:text-black ml-1">
+                        Sign up
                     </Link>
                 </p>
             </div>

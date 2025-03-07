@@ -7,29 +7,33 @@ export const CartProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(""); // New state for search term
-    const [products, setProducts] = useState([]); // New state for all products (you can fetch this from an API or pass it as a prop)
-
-    // Function to safely parse JSON from localStorage
-    const safeParseJSON = (key) => {
-        try {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : null;
-        } catch (error) {
-            console.error(`Error parsing localStorage key "${key}":`, error);
-            return null;
-        }
-    };
+    const [searchTerm, setSearchTerm] = useState(""); 
+    const [products, setProducts] = useState([]); 
 
     // Load persisted data from localStorage when the component mounts
     useEffect(() => {
-        setCart(safeParseJSON("cart") || []);
-        setOrders(safeParseJSON("orders") || []);
-        setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-        setUserInfo(safeParseJSON("userInfo") || null);
-    }, []);
+        const storedCart = JSON.parse(localStorage.getItem("cart"));
+        const storedOrders = JSON.parse(localStorage.getItem("orders"));
+        const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+        const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+        const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    // Save updated cart to localStorage
+        if (storedIsLoggedIn === "true" || storedUser) {
+            setIsLoggedIn(true);
+        }
+
+        if (storedCart) {
+            setCart(storedCart);
+        }
+        if (storedOrders) {
+            setOrders(storedOrders);
+        }
+        if (storedUserInfo || storedUser) {
+            setUserInfo(storedUserInfo || storedUser);
+        }
+    }, []); // Only runs once when the component mounts
+
+    // Save updated cart to storage
     const saveCartToStorage = (updatedCart) => {
         setCart(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -46,14 +50,12 @@ export const CartProvider = ({ children }) => {
         let updatedCart;
 
         if (existingProduct) {
-            // If the product already exists in the cart, update its quantity
             updatedCart = cart.map((item) =>
                 item.id === product.id && item.size === product.size
                     ? { ...item, quantity: item.quantity + product.quantity }
                     : item
             );
         } else {
-            // If the product is not in the cart, add it with the selected quantity
             updatedCart = [...cart, { ...product, quantity: product.quantity }];
         }
 
@@ -103,13 +105,16 @@ export const CartProvider = ({ children }) => {
                 items: cart,
             };
 
-            const updatedOrders = [...orders, newOrder];
-            setOrders(updatedOrders);
-            localStorage.setItem("orders", JSON.stringify(updatedOrders));
+            // Safely update orders using the previous state
+            setOrders((prevOrders) => {
+                const updatedOrders = [...prevOrders, newOrder]; // Create new order list
+                localStorage.setItem("orders", JSON.stringify(updatedOrders)); // Update localStorage with new orders list
+                return updatedOrders; // Return updated state
+            });
 
-            // Clear the cart after purchase
-            setCart([]);
-            localStorage.removeItem("cart");
+            // Clear the cart after placing the order
+            setCart([]); // Empty cart in state
+            localStorage.removeItem("cart"); // Remove cart from localStorage
             alert("Thank you for your purchase! Your order has been placed.");
         }
     };
@@ -117,9 +122,11 @@ export const CartProvider = ({ children }) => {
     // Login user
     const login = (userDetails) => {
         setIsLoggedIn(true);
-        setUserInfo(userDetails);
+        if (userDetails) {
+            setUserInfo(userDetails);
+            localStorage.setItem("userInfo", JSON.stringify(userDetails));
+        }
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userInfo", JSON.stringify(userDetails));
     };
 
     // Logout user and clear all user-related data
@@ -132,21 +139,19 @@ export const CartProvider = ({ children }) => {
         localStorage.removeItem("orders");
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("userInfo");
-        alert("You have been logged out.");
+        localStorage.removeItem("user");
     };
 
-    
+    // Update user profile
     const updateUserProfile = (newUserInfo) => {
         setUserInfo(newUserInfo);
         localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
     };
 
-    
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-
     const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
