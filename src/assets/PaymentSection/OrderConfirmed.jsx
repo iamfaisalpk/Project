@@ -1,38 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useCart } from "../Cart/CartContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const OrderConfirm = () => {
-    const { cart, buyProducts, isLoggedIn } = useCart();
+    const { cart, buyProducts, isLoggedIn, userInfo } = useCart();
     const navigate = useNavigate();
-
-    const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState("");
-    const [newAddress, setNewAddress] = useState({ address: "", phone: "", homeName: "", addressType: "", isDefault: false });
-    const [editMode, setEditMode] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    const [formError, setFormError] = useState("");
-
-    // Fetch addresses from API (assuming a JSON server or similar)
-    useEffect(() => {
-        axios.get("http://localhost:3000/addresses")
-            .then((response) => {
-                if (response.data && response.data.length > 0) {
-                    setAddresses(response.data);
-                } else {
-                    setError("No addresses found.");
-                }
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                setError("Failed to load addresses. Please try again.");
-                setLoading(false);
-            });
-    }, []);
-    
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [houseName, setHouseName] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    const [streetAddress, setStreetAddress] = useState("");
 
     useEffect(() => {
         if (cart.length === 0) {
@@ -40,54 +17,35 @@ const OrderConfirm = () => {
         }
     }, [cart, navigate]);
 
+    useEffect(() => {
+        if (userInfo && userInfo.address) {
+            setSelectedAddress(userInfo.address);
+            const parts = userInfo.address.split(", ");
+            if (parts.length === 4) {
+                setHouseName(parts[0]);
+                setStreetAddress(parts[1]);
+                setPinCode(parts[2]);
+                setPhoneNumber(parts[3]);
+            }
+        }
+    }, [userInfo]);
+
     const handlePurchase = () => {
-        if (!selectedAddress && !newAddress.address) {
-            setError("Please select or enter an address.");
+        const addressToUse = selectedAddress || combineAddress();
+        if (!addressToUse.trim()) {
+            alert("Please fill in all address fields to proceed.");
             return;
         }
 
-        if (newAddress.phone && !/^\d{10}$/.test(newAddress.phone)) {
-            setFormError("Please enter a valid 10-digit phone number.");
-            return;
-        }
-
-        setError(""); // Clear errors
-        setFormError(""); // Clear form errors
-
-        // Proceed with purchase
-        buyProducts();
-
-        // Redirect to the order history page
+        buyProducts(addressToUse !== userInfo?.address ? addressToUse : null);
         navigate("/orders");
     };
 
-    const handleSaveAddress = () => {
-        // Validate the new address form
-        if (!newAddress.address || !newAddress.phone || !newAddress.homeName || !newAddress.addressType) {
-            setFormError("Please fill all fields.");
-            return;
+    const combineAddress = () => {
+        if (!phoneNumber || !houseName || !pinCode || !streetAddress) {
+            return "";
         }
-
-        setFormError(""); // Clear form error
-
-        // If we're in edit mode, update the address
-        if (editMode) {
-            setAddresses(addresses.map(addr => addr.id === selectedAddress.id ? { ...addr, ...newAddress } : addr));
-        } else {
-            // Add the new address
-            const newAddr = { ...newAddress, id: new Date().toISOString() }; // generate unique id
-            setAddresses([...addresses, newAddr]);
-        }
-
-        setSelectedAddress(newAddress);
-        setEditMode(false);
-        setNewAddress({ address: "", phone: "", homeName: "", addressType: "", isDefault: false });
-    };
-
-    const handleEditAddress = (address) => {
-        setNewAddress(address);
-        setSelectedAddress(address);
-        setEditMode(true);
+        return `${houseName}, ${streetAddress}, ${pinCode}, ${phoneNumber}`;
     };
 
     return (
@@ -98,115 +56,83 @@ const OrderConfirm = () => {
                 <p className="text-red-500 font-semibold">Please login to confirm your order.</p>
             ) : (
                 <>
-                    <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2">Review Your Order:</h3>
-                        <ul className="list-disc pl-5 bg-gray-100 p-4 rounded-lg">
-                            {cart.map((item) => (
-                                <li key={item.id} className="my-2">
-                                    {item.name} - {item.quantity} x ${item.price.toFixed(2)} 
-                                    (Total: ${(item.quantity * item.price).toFixed(2)})
-                                </li>
-                            ))}
-                        </ul>
-                        <p className="font-bold mt-4 text-lg">
-                            Total Amount: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
-                        </p>
-                    </div>
-
-                    {/* Address Selection Section */}
-                    <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2">Select or Add Delivery Address:</h3>
-
-                        {/* Loading and Error Handling */}
-                        {loading && <p className="text-gray-500">Loading addresses...</p>}
-                        {error && <p className="text-red-500">{error}</p>}
-
-                        {/* Display Address List */}
-                        {!loading && addresses.length > 0 && (
-                            <div className="space-y-4">
-                                {addresses.map((addr, index) => (
-                                    <div key={index} className="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
-                                        <div>
-                                            <p className="font-semibold">{addr.homeName}</p>
-                                            <p>{addr.address}</p>
-                                            <p>{addr.phone}</p>
-                                            <p>{addr.addressType}</p>
-                                        </div>
-                                        <div>
-                                            {addr.isDefault && <span className="text-green-500 font-bold">Default</span>}
-                                            <button
-                                                onClick={() => handleEditAddress(addr)}
-                                                className="text-blue-500 text-sm ml-4"
-                                            >
-                                                Edit
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* New Address Form */}
-                        <div className="mt-4">
-                            <label className="block font-medium">Enter a New Address:</label>
-                            <input
-                                type="text"
-                                value={newAddress.address}
-                                onChange={(e) => setNewAddress({ ...newAddress, address: e.target.value })}
-                                placeholder="Enter Address"
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            />
-                            <input
-                                type="number"
-                                value={newAddress.phone}
-                                onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                                placeholder="Enter Phone Number"
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            />
-                            <input
-                                type="text"
-                                value={newAddress.homeName}
-                                onChange={(e) => setNewAddress({ ...newAddress, homeName: e.target.value })}
-                                placeholder="Enter Home Name (e.g., Flat 101)"
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            />
-                            <select
-                                value={newAddress.addressType}
-                                onChange={(e) => setNewAddress({ ...newAddress, addressType: e.target.value })}
-                                className="w-full p-2 border rounded-md focus:ring focus:ring-green-400 mb-2"
-                            >
-                                <option value="">Select Address Type</option>
-                                <option value="Home">Home</option>
-                                <option value="Office">Office</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                            <div className="flex items-center mb-4">
-                                <input
-                                    type="checkbox"
-                                    checked={newAddress.isDefault}
-                                    onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
-                                    className="mr-2"
+                    <h3 className="text-xl font-semibold mb-2">Review Your Order:</h3>
+                    <div className="bg-gray-100 p-4 rounded-lg space-y-4">
+                        {cart.map((item) => (
+                            <div key={item.id} className="flex items-center space-x-4">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-16 h-16 object-cover rounded"
                                 />
-                                <label className="text-gray-700">Set as Default Address</label>
+                                <div>
+                                    <p className="font-semibold">{item.name}</p>
+                                    <p className="text-gray-600">Brand: {item.brand}</p>
+                                    <p className="text-gray-600">Category: {item.category}</p>
+                                    <p>{item.quantity} x ${item.price.toFixed(2)}</p>
+                                </div>
                             </div>
-
-                            {formError && <p className="text-red-500">{formError}</p>}
-                            <button
-                                onClick={handleSaveAddress}
-                                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
-                            >
-                                {editMode ? "Save Address" : "Add New Address"}
-                            </button>
-                        </div>
+                        ))}
                     </div>
+                    <p className="font-bold mt-4 text-lg">
+                        Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
+                    </p>
 
-                    {/* Purchase Confirmation */}
+                    <h3 className="text-xl font-semibold mt-6">Delivery Address:</h3>
+                    {userInfo?.address ? (
+                        <div className="p-4 border rounded-lg my-2">
+                            <p>{userInfo.address}</p>
+                        </div>
+                    ) : (
+                        <div className="my-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-1">House Name:</label>
+                                <input
+                                    type="text"
+                                    value={houseName}
+                                    onChange={(e) => setHouseName(e.target.value)}
+                                    placeholder="e.g., Rose Villa"
+                                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-1">Street Address:</label>
+                                <input
+                                    type="text"
+                                    value={streetAddress}
+                                    onChange={(e) => setStreetAddress(e.target.value)}
+                                    placeholder="e.g., 123 Main St, City"
+                                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-1">Pin Code:</label>
+                                <input
+                                    type="text"
+                                    value={pinCode}
+                                    onChange={(e) => setPinCode(e.target.value)}
+                                    placeholder="e.g., 123456"
+                                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-1">Phone Number:</label>
+                                <input
+                                    type="text"
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    placeholder="e.g., 123-456-7890"
+                                    className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                />
+                            </div>
+                        </div>
+                    )}
+
                     <button
                         onClick={handlePurchase}
                         className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition mt-4"
                     >
-                        Confirm Purchase
+                        Confirm and Place Order
                     </button>
                 </>
             )}

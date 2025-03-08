@@ -1,32 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../Cart/CartContext";
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]);
-    const [selectedSize, setSelectedSize] = useState("");
-    const { cart, addToCart, removeFromCart, isLoggedIn, searchTerm, setSearchTerm, filteredProducts, setProducts: setContextProducts } = useCart();
-
-    useEffect(() => {
-        axios.get("http://localhost:3000/products")
-            .then((response) => {
-                setProducts(response.data);
-                setContextProducts(response.data); 
-            })
-            .catch(() => console.error("Error fetching products"));
-    }, [setContextProducts]);
+    const { cart, addToCart, removeFromCart, isLoggedIn, searchTerm, setSearchTerm, filteredProducts } = useCart();
 
     const isInCart = (productId) => cart.some((item) => item.id === productId);
-
-    const handleSizeFilter = (size) => {
-        setSelectedSize(size);
-        if (size === "") {
-            setContextProducts(products); // Reset to all products
-        } else {
-            setContextProducts(products.filter(product => product.size.includes(size)));
-        }
-    };
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -42,7 +21,6 @@ const ProductList = () => {
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-
 
             {/* Product List */}
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -63,7 +41,7 @@ const ProductList = () => {
                                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 w-full mt-2"
                                 onClick={() => removeFromCart(product.id)}
                             >
-                                Remove from Your Product
+                                Remove from Cart
                             </button>
                         ) : (
                             <button
@@ -71,7 +49,7 @@ const ProductList = () => {
                                 onClick={() => addToCart(product)}
                                 disabled={!isLoggedIn}
                             >
-                                Buy The Product
+                                Add to Cart
                             </button>
                         )}
 
@@ -79,7 +57,7 @@ const ProductList = () => {
                             to="/cart"
                             className="block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full text-center mt-2"
                         >
-                            Go to Your Order
+                            View Cart
                         </Link>
                     </li>
                 ))}

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
 const CartContext = createContext();
 
@@ -7,152 +8,139 @@ export const CartProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(""); 
-    const [products, setProducts] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState("");
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
-    // Load persisted data from localStorage when the component mounts
     useEffect(() => {
-        const storedCart = JSON.parse(localStorage.getItem("cart"));
-        const storedOrders = JSON.parse(localStorage.getItem("orders"));
-        const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
         const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-        const storedUser = JSON.parse(localStorage.getItem("user"));
 
-        if (storedIsLoggedIn === "true" || storedUser) {
-            setIsLoggedIn(true);
+        setIsLoggedIn(storedIsLoggedIn);
+        setCart(storedCart);
+        setUserInfo(storedUserInfo);
+
+        if (storedUserInfo) {
+            axios.get(`http://localhost:3000/users/${storedUserInfo.id}`)
+                .then(response => setOrders(response.data.orders || []))
+                .catch(error => console.error("Error fetching user orders:", error));
         }
 
-        if (storedCart) {
-            setCart(storedCart);
-        }
-        if (storedOrders) {
-            setOrders(storedOrders);
-        }
-        if (storedUserInfo || storedUser) {
-            setUserInfo(storedUserInfo || storedUser);
-        }
-    }, []); // Only runs once when the component mounts
+        axios.get("http://localhost:3000/products")
+            .then((response) => {
+                setProducts(response.data);
+                setFilteredProducts(response.data);
+            })
+            .catch(() => console.error("Error fetching products"));
+    }, []);
 
-    // Save updated cart to storage
+    useEffect(() => {
+        setFilteredProducts(
+            products.filter((product) =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    }, [searchTerm, products]);
+
     const saveCartToStorage = (updatedCart) => {
         setCart(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    // Add product to the cart
     const addToCart = (product) => {
         if (!isLoggedIn) {
             alert("Please login to add products to the cart.");
             return;
         }
-
-        const existingProduct = cart.find((item) => item.id === product.id && item.size === product.size);
-        let updatedCart;
-
-        if (existingProduct) {
-            updatedCart = cart.map((item) =>
-                item.id === product.id && item.size === product.size
-                    ? { ...item, quantity: item.quantity + product.quantity }
-                    : item
-            );
-        } else {
-            updatedCart = [...cart, { ...product, quantity: product.quantity }];
-        }
-
+        const sanitizedProduct = {
+            id: product.id,
+            name: product.name,
+            brand: product.brand,
+            price: product.price,
+            category: product.category,
+            image: product.image,
+            description: product.description,
+            quantity: 1,
+        };
+        const updatedCart = [...cart, sanitizedProduct];
         saveCartToStorage(updatedCart);
     };
 
-    // Remove product from the cart
     const removeFromCart = (productId) => {
         const updatedCart = cart.filter((item) => item.id !== productId);
         saveCartToStorage(updatedCart);
     };
 
-    // Update product quantity in the cart
-    const updateQuantity = (productId, quantity) => {
-        if (quantity < 1) {
-            removeFromCart(productId);
+    const buyProducts = async (newAddress = null) => {
+        if (!isLoggedIn || cart.length === 0) {
+            alert("Please login and add items to cart before purchasing.");
             return;
         }
 
-        const updatedCart = cart.map((item) =>
-            item.id === productId ? { ...item, quantity } : item
-        );
-
-        saveCartToStorage(updatedCart);
-    };
-
-    // Buy products (create an order and clear cart)
-    const buyProducts = () => {
-        if (!isLoggedIn) {
-            alert("Please login to complete your purchase.");
+        const addressToUse = newAddress || userInfo?.address;
+        if (!addressToUse) {
+            alert("Please provide an address to place the order.");
             return;
         }
 
-        if (cart.length === 0) {
-            alert("Your cart is empty!");
-            return;
-        }
+        const sanitizedItems = cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            brand: item.brand,
+            price: item.price,
+            category: item.category,
+            image: item.image,
+            description: item.description,
+            quantity: item.quantity,
+        }));
 
-        const confirmed = window.confirm("Are you sure you want to complete the purchase?");
-        if (confirmed) {
-            const newOrder = {
-                id: Date.now(),
-                user: userInfo,
-                date: new Date().toISOString(),
-                status: "Completed",
-                totalAmount: cart.reduce((total, item) => total + item.price * item.quantity, 0),
-                items: cart,
+        const newOrder = {
+            userId: userInfo.id,
+            date: new Date().toISOString(),
+            status: "Completed",
+            totalAmount: sanitizedItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0),
+            items: sanitizedItems,
+            address: addressToUse,
+        };
+
+        try {
+            const response = await axios.get(`http://localhost:3000/users/${userInfo.id}`);
+            const currentUser = response.data;
+            const updatedOrders = [...(currentUser.orders || []), newOrder];
+
+            const updatedUserData = {
+                ...currentUser,
+                orders: updatedOrders,
+                ...(newAddress && { address: newAddress }),
             };
+            await axios.patch(`http://localhost:3000/users/${userInfo.id}`, updatedUserData);
 
-            // Safely update orders using the previous state
-            setOrders((prevOrders) => {
-                const updatedOrders = [...prevOrders, newOrder]; // Create new order list
-                localStorage.setItem("orders", JSON.stringify(updatedOrders)); // Update localStorage with new orders list
-                return updatedOrders; // Return updated state
-            });
+            setOrders(updatedOrders);
+            if (newAddress) {
+                const updatedUserInfo = { ...userInfo, address: newAddress };
+                setUserInfo(updatedUserInfo);
+                localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
+            }
+            setCart([]);
+            localStorage.removeItem("cart");
 
-            // Clear the cart after placing the order
-            setCart([]); // Empty cart in state
-            localStorage.removeItem("cart"); // Remove cart from localStorage
-            alert("Thank you for your purchase! Your order has been placed.");
+            alert("Your order has been placed successfully!");
+        } catch (error) {
+            console.error("Error placing order:", error);
+            alert("Failed to place order. Please try again.");
         }
     };
 
-    // Login user
-    const login = (userDetails) => {
-        setIsLoggedIn(true);
-        if (userDetails) {
-            setUserInfo(userDetails);
-            localStorage.setItem("userInfo", JSON.stringify(userDetails));
-        }
-        localStorage.setItem("isLoggedIn", "true");
-    };
-
-    // Logout user and clear all user-related data
     const logout = () => {
         setIsLoggedIn(false);
         setUserInfo(null);
         setCart([]);
         setOrders([]);
-        localStorage.removeItem("cart");
-        localStorage.removeItem("orders");
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("userInfo");
-        localStorage.removeItem("user");
+        localStorage.removeItem("cart");
     };
-
-    // Update user profile
-    const updateUserProfile = (newUserInfo) => {
-        setUserInfo(newUserInfo);
-        localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
-    };
-
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-
-    const filteredProducts = products.filter((product) =>
-        product.name?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
         <CartContext.Provider
@@ -161,20 +149,15 @@ export const CartProvider = ({ children }) => {
                 orders,
                 addToCart,
                 removeFromCart,
-                updateQuantity,
                 buyProducts,
                 isLoggedIn,
-                login,
-                logout,
-                updateUserProfile,
                 userInfo,
-                setCart,
-                cartCount,
-                searchTerm, 
-                setSearchTerm, 
-                products, 
-                setProducts, 
-                filteredProducts, 
+                setUserInfo,
+                searchTerm,
+                setSearchTerm,
+                filteredProducts,
+                setFilteredProducts,
+                logout,
             }}
         >
             {children}

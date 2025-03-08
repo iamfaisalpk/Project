@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Layout from './assets/Navbar-Component/Layout';
 import Home from './assets/Navbar-Component/Home';
 import Error from './assets/Navbar-Component/Error';
@@ -15,6 +16,9 @@ import OrderConfirmed from './assets/PaymentSection/OrderConfirmed';
 import OrderHistory from './assets/Order/OrderHistory';
 import UserProfile from './assets/UserProfile/UserProfile';
 import Register from './assets/Navbar-Component/Reg';
+import AdminPage from './assets/Admin/AdminPage';
+import Dashboard from './assets/Admin/Dashboard';
+import ProtectedRoute from './assets/Admin/ProtectRoute';
 
 const App = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -36,7 +40,25 @@ const App = () => {
                 { path: '/payment', element: <Payment /> },
                 { path: '/order', element: <OrderConfirmed /> },
                 { path: '/profile', element: <UserProfile /> },
-                { path: '/orders', element: <OrderHistory /> }
+                { path: '/orders', element: <OrderHistory /> },
+                
+                // Protected Admin Routes
+                { 
+                    path: '/admin', 
+                    element: (
+                        <ProtectedRoute>
+                            <AdminPage />
+                        </ProtectedRoute>
+                    ) 
+                },
+                { 
+                    path: '/dashboard', 
+                    element: (
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    ) 
+                },
             ],
         },
     ]);

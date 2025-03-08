@@ -1,34 +1,67 @@
 {
-  "user": [
+  "users": [
+    {
+      "id": "786",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "role": "admin",
+      "password": "admin"
+    },
     {
       "id": "6aa9",
       "username": "hiii",
       "email": "hii@gmail.com",
-      "password": "hii"
+      "password": "hii",
+      "orders": []
     },
     {
       "id": "28d8",
       "username": "faisll",
       "email": "faisll@gmail.com",
-      "password": "faa"
+      "password": "faa",
+      "orders": []
     },
     {
       "id": "34b7",
       "username": "faisll",
       "email": "faa@gmail.com",
-      "password": "faa"
+      "password": "faa",
+      "orders": []
     },
     {
       "id": "09b7",
       "username": "fall",
       "email": "fall@gmail.com",
-      "password": "fall"
+      "password": "fall",
+      "orders": []
     },
     {
       "id": "5c62",
       "username": "faisl",
       "email": "faisl@gmail.com",
-      "password": "123456"
+      "password": "123456",
+      "orders": [
+        {
+          "userId": "5c62",
+          "date": "2025-03-08T05:06:12.978Z",
+          "status": "Completed",
+          "totalAmount": 180,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Ultraboost Pro",
+              "brand": "Adidas",
+              "price": 180,
+              "category": "Running",
+              "image": "https://m.media-amazon.com/images/I/51N91AA3okL._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Energy-returning cushioning for long runs.",
+              "quantity": 1
+            }
+          ],
+          "address": "rose illa, selaal, 123, 1234567890"
+        }
+      ],
+      "address": "rose illa, selaal, 123, 1234567890"
     }
   ],
   "products": [
@@ -436,8 +469,5 @@
       "image": "https://m.media-amazon.com/images/I/71OhPni7qQL._AC_UL480_FMwebp_QL65_.jpg",
       "description": "Performance basketball shoes with a classic look."
     }
-  ],
-  "orders": [
-    
   ]
 }

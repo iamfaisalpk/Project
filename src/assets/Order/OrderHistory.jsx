@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../Cart/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const OrderHistory = () => {
     const { orders = [], isLoggedIn } = useCart();
     const [filteredOrders, setFilteredOrders] = useState([]);
-    const [loading, setLoading] = useState(true);  
-    const [error, setError] = useState(null);  
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoggedIn) {
-            setLoading(true);
-            try {
-                // Safely handle the orders data
-                if (Array.isArray(orders)) {
-                    setFilteredOrders(orders);
-                } else {
-                    setFilteredOrders([]);
-                }
-                setLoading(false);
-            } catch (err) {
-                console.error("Error processing orders:", err);
-                setError("Failed to load orders.");
-                setLoading(false);
+        if (!isLoggedIn) {
+            navigate("/login");
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        try {
+            if (Array.isArray(orders)) {
+                setFilteredOrders(orders);
+            } else {
+                setFilteredOrders([]);
             }
-        } else {
-            setFilteredOrders([]);
+            setLoading(false);
+        } catch (err) {
+            console.error("Error processing orders:", err);
+            setError("Failed to load orders.");
             setLoading(false);
         }
-    }, [orders, isLoggedIn]);
+    }, [orders, isLoggedIn, navigate]);
 
-    // Early return patterns
     if (!isLoggedIn) {
         return <p className="text-center py-4">Please login to view your order history.</p>;
     }
@@ -49,24 +50,36 @@ const OrderHistory = () => {
     return (
         <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-4">Order History</h2>
-            {filteredOrders.map((order) => (
+            {filteredOrders.map((order, index) => (
                 <div
-                    key={order.id}
+                    key={index} // No order.id, using index as fallback
                     className="bg-white shadow-md rounded-md mb-4 p-4"
                     style={{ border: "1px solid #ddd" }}
                 >
-                    <p><strong>Order ID:</strong> {order.id}</p>
-                    <p><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                    <p><strong>Order #:</strong> {`ORD-${index + 1}`}</p>
+                    <p><strong>Date:</strong> {new Date(order.date).toLocaleString()}</p>
                     <p><strong>Status:</strong> {order.status}</p>
-                    <p><strong>Total Amount:</strong> ${order.totalAmount}</p>
+                    <p><strong>Total Amount:</strong> ${order.totalAmount.toFixed(2)}</p>
+                    <p><strong>Delivery Address:</strong> {order.address}</p>
                     <h4 className="mt-2 font-semibold">Items:</h4>
-                    <ul className="list-disc pl-5 mt-2">
+                    <div className="space-y-4 mt-2">
                         {order.items && order.items.map((item) => (
-                            <li key={item.productId} className="mb-1">
-                                {item.name} - {item.quantity} x ${item.price}
-                            </li>
+                            <div key={item.id} className="flex items-center space-x-4">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-16 h-16 object-cover rounded"
+                                />
+                                <div>
+                                    <p className="font-semibold">{item.name}</p>
+                                    <p className="text-gray-600">Brand: {item.brand}</p>
+                                    <p className="text-gray-600">Category: {item.category}</p>
+                                    <p className="text-gray-600">Description: {item.description}</p>
+                                    <p>{item.quantity} x ${item.price.toFixed(2)}</p>
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             ))}
         </div>
