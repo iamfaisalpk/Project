@@ -1,4 +1,3 @@
-// components/ProductList.js
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -7,7 +6,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((response) => {
+    axios.get("http://localhost:3000/products").then((response) => {
       setProducts(response.data);
     });
   }, []);

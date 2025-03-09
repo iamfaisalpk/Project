@@ -1,20 +1,17 @@
-// components/AdminLayout.js
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import React from "react";
 import { Outlet } from "react-router-dom";
+import AdminSidebar from "./Sidebar";
+
 
 const AdminLayout = () => {
-  return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <div className="p-4">
-          <Outlet /> {/* This will load the current admin page */}
+    return (
+        <div className="flex">
+            <AdminSidebar /> 
+            <div className="flex-1 p-5 bg-gray-100 min-h-screen">
+                <Outlet /> 
+            </div>
         </div>
-    </div>
-    </div>
-  );
+    );
 };
 
 export default AdminLayout;

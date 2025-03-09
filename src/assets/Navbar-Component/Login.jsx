@@ -9,13 +9,17 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const { login, isLoggedIn, updateUserProfile, setCart } = useCart();
+    const { login, isLoggedIn, setCart } = useCart();
 
-    // Check if user is already logged in and redirect
+    // Redirect if already logged in
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
+        const isAdmin = localStorage.getItem("isAdmin");
+
         if (storedUser && isLoggedIn) {
             navigate("/home");
+        } else if (isAdmin) {
+            navigate("/admin");
         }
     }, [navigate, isLoggedIn]);
 
@@ -24,7 +28,9 @@ const Login = () => {
         setError("");
 
         try {
+            // Admin Login
             if (email === "admin@gmail.com" && password === "admin") {
+                localStorage.setItem("isAdmin", "true");
                 navigate("/admin");
                 return;
             }
@@ -42,11 +48,9 @@ const Login = () => {
                 return;
             }
 
-            // Successful login
             login(user);
             localStorage.setItem("user", JSON.stringify(user));
 
-            // Load user's cart if it exists
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
             setCart(storedCart);
 
