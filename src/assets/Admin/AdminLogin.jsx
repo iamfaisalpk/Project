@@ -4,18 +4,18 @@ import { useAuth } from './Authcontext';
 
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const { login } = useAuth();
+const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     try {
-      const role = await login(email, password);
-      navigate(role === 'admin' ? '/admin' : '/home');
+    const role = await login(email, password);
+    navigate(role === 'admin' ? '/admin' : '/home');
     } catch (err) {
     setError(err.message);
     }
