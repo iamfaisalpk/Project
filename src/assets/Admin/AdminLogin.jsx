@@ -1,61 +1,64 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './Authcontext';
+
 
 const AdminLogin = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const handleAdminLogin = (e) => {
-        e.preventDefault();
-        setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const role = await login(email, password);
+      navigate(role === 'admin' ? '/admin' : '/home');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
-        if (email === "admin@gmail.com" && password === "admin") {
-            localStorage.setItem("isAdmin", "true");
-            navigate("/admin");
-        } else {
-            setError("Invalid admin credentials!");
-        }
-    };
-
-    return (
-        <div className="container px-5 py-24 mx-auto flex">
-            <div className="bg-gray-800 rounded-lg p-8 flex flex-col mx-auto mt-8 md:mt-0 shadow-md text-white w-[500px]">
-                <h2 className="text-white text-4xl mb-5 font-medium title-font">Admin Login</h2>
-                {error && <p className="text-red-600 mb-4">{error}</p>}
-
-                <div className="relative mb-4">
-                    <label htmlFor="email" className="leading-7 text-sm text-white">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    />
-                </div>
-
-                <div className="relative mb-4">
-                    <label htmlFor="password" className="text-white leading-7 text-sm">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                    />
-                </div>
-
-                <button
-                    onClick={handleAdminLogin}
-                    className="text-white cursor-pointer bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                >
-                    Admin Login
-                </button>
-            </div>
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Admin Login</h2>
+        {error && <p className="text-red-500 mb-4 text-center bg-red-100 p-2 rounded">{error}</p>}
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="admin@gmail.com"
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
         </div>
-    );
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="•••••"
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default AdminLogin;

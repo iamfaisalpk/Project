@@ -94,7 +94,7 @@ const Navigation = () => {
                             )}
                         </div>
                     ) : (
-                        <li className="hover:bg-orange-400 rounded-[5px] px-3 py-1 w-full md:w-auto text-center list-none">
+                        <li className="bg-orange-400 hover:bg-amber-500 rounded-[5px] px-3 py-1 w-full md:w-auto text-center list-none">
                             <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
                         </li>
                     )}
