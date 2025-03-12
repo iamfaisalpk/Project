@@ -48,17 +48,17 @@ const AdminLogin = () => {
             placeholder="•••••"
             className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
-          />
+        />
         </div>
         <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
+        type="submit"
+        className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
         >
-          Login
+        Login
         </button>
-      </form>
+    </form>
     </div>
-  );
+);
 };
 
 export default AdminLogin;
