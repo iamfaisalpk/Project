@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { useAuth } from './Authcontext';
 
 const HamburgerIcon = ({ isOpen, toggle }) => (
   <button onClick={toggle} className="focus:outline-none p-2">
