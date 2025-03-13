@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
       if (foundUser) {
         setUser(foundUser);
-        return foundUser.role; // Return role, let caller handle navigation
+        return foundUser.role; 
       }
       throw new Error('Invalid credentials');
     } catch (error) {
@@ -35,8 +35,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null); // Clear user state only
-    // Navigation handled by caller
+    setUser(null);
   };
 
   return (

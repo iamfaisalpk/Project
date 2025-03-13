@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { CartProvider } from './assets/Cart/CartContext';
-import { AuthProvider } from './AuthContext'; // Updated import path
 import Layout from './assets/Navbar-Component/Layout';
 import Home from './assets/Navbar-Component/Home';
 import Error from './assets/Navbar-Component/Error';
@@ -23,13 +22,16 @@ import AdminOrders from './assets/admin/AdminOrderList';
 import Users from './assets/admin/Users';
 import AdminSidebar from './assets/Admin/Sidebar';
 import AdminLogin from './assets/admin/AdminLogin';
+import { AuthProvider } from './assets/Admin/Authcontext';
+import Editproducts from './assets/admin/Editproducts';
+import Addproducts from './assets/admin/Addproducts';
 
 const AdminLayout = () => (
-  <div className="flex min-h-screen">
+  <div className="flex min-h-screen bg-gray-100">
     <AdminSidebar />
-    <div className="flex-1 p-6">
+    <main className="flex-1 p-6 overflow-y-auto">
       <Outlet />
-    </div>
+    </main>
   </div>
 );
 
@@ -42,16 +44,16 @@ const App = () => {
       element: <Layout setSearchQuery={setSearchQuery} />,
       errorElement: <Error />,
       children: [
-        { path: 'home', element: <Home searchQuery={searchQuery} /> }, // Changed '/' to 'home'
+        {path : 'home', element: <Home/>},
         { path: 'login', element: <Login /> },
-        { path: 'reg', element: <Register /> },
+        { path: 'register', element: <Register /> },
         { path: 'men', element: <Men /> },
         { path: 'women', element: <Women /> },
         { path: 'products', element: <ProductList searchQuery={searchQuery} /> },
         { path: 'products/:id', element: <ProductDetails /> },
         { path: 'cart', element: <Cart /> },
         { path: 'payment', element: <Payment /> },
-        { path: 'order', element: <OrderConfirmed /> },
+        { path: 'order-confirmed', element: <OrderConfirmed /> },
         { path: 'profile', element: <UserProfile /> },
         { path: 'orders', element: <OrderHistory /> },
       ],
@@ -67,11 +69,13 @@ const App = () => {
             </ProtectedRoute>
           ),
           children: [
-            { path: '', element: <Dashboard /> },
+            { index: true, element: <Dashboard /> },
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'products', element: <AdminProducts /> },
             { path: 'orders', element: <AdminOrders /> },
             { path: 'users', element: <Users /> },
+            { path: 'products/edit/:id', element: <Editproducts /> }, 
+            { path: 'products/add', element: <Addproducts /> },      
           ],
         },
       ],

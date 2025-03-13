@@ -52,7 +52,7 @@ const OrderHistory = () => {
             <h2 className="text-2xl font-bold mb-4">Order History</h2>
             {filteredOrders.map((order, index) => (
                 <div
-                    key={index} // No order.id, using index as fallback
+                    key={index} 
                     className="bg-white shadow-md rounded-md mb-4 p-4"
                     style={{ border: "1px solid #ddd" }}
                 >

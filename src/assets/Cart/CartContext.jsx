@@ -14,13 +14,12 @@ export const CartProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch Products and User Data on Mount
+    
     useEffect(() => {
         const initializeData = async () => {
             try {
                 setLoading(true);
                 
-                // Get data from localStorage
                 const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
                 const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
                 const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -29,7 +28,6 @@ export const CartProvider = ({ children }) => {
                 setIsLoggedIn(storedIsLoggedIn);
                 setUserInfo(storedUserInfo);
 
-                // Fetch user orders if logged in
                 if (storedIsLoggedIn && storedUserInfo?.id) {
                     await fetchUserOrders(storedUserInfo.id);
                 }
@@ -48,7 +46,7 @@ export const CartProvider = ({ children }) => {
         initializeData();
     }, []);
 
-    // Fetch Products
+    
     const fetchProducts = async () => {
         try {
             const response = await axios.get("http://localhost:3000/products");
@@ -63,14 +61,14 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Fetch Orders when userInfo changes
+    
     useEffect(() => {
         if (userInfo?.id) {
             fetchUserOrders(userInfo.id);
         }
     }, [userInfo]);
 
-    // Function to Fetch User Orders
+    
     const fetchUserOrders = async (userId) => {
         try {
             const response = await axios.get(`http://localhost:3000/users/${userId}`);
@@ -83,7 +81,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Filter Products Based on Search Term
     useEffect(() => {
         if (products.length > 0) {
             setFilteredProducts(
@@ -96,13 +93,13 @@ export const CartProvider = ({ children }) => {
         }
     }, [searchTerm, products]);
 
-    // Save Cart to Local Storage
+    
     const saveCartToStorage = (updatedCart) => {
         setCart(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    // Login User
+    
     const login = async (user) => {
         if (!user?.id) {
             setError("Invalid user data");
@@ -123,7 +120,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Add Product to Cart
+    
     const addToCart = (product, quantity = 1, size = "N/A") => {
         if (!isLoggedIn) {
             alert("Please login to add products to the cart.");
@@ -164,7 +161,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Remove Product from Cart
+    
     const removeFromCart = (productId, size = "N/A") => {
         try {
             const updatedCart = cart.filter(
@@ -179,7 +176,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Update Product Quantity
+    
     const updateQuantity = (productId, newQuantity, size = "N/A") => {
         if (newQuantity < 1) return false;
         
@@ -199,7 +196,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Buy Products
+
     const buyProducts = async (newAddress = null) => {
         if (!isLoggedIn) {
             alert("Please login to place an order.");
@@ -265,7 +262,6 @@ export const CartProvider = ({ children }) => {
                 localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
             }
             
-            // Clear cart after successful purchase
             setCart([]);
             localStorage.removeItem("cart");
 
@@ -278,7 +274,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Logout User
+    
     const logout = () => {
         try {
             setIsLoggedIn(false);
@@ -296,34 +292,30 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Get Cart Total
     const getCartTotal = () => {
         return cart.reduce((total, item) => total + (parseFloat(item.price) * parseInt(item.quantity)), 0);
     };
 
-    // Check if Product is in Cart
+    
     const isProductInCart = (productId, size = "N/A") => {
         return cart.some(item => item.id === productId && item.size === size);
     };
 
-    // Get Product Quantity in Cart
+    
     const getProductQuantity = (productId, size = "N/A") => {
         const item = cart.find(item => item.id === productId && item.size === size);
         return item ? item.quantity : 0;
     };
 
-    // Clear Cart
     const clearCart = () => {
         setCart([]);
         localStorage.removeItem("cart");
     };
 
-    // Get Order History
     const getOrderHistory = () => {
         return orders;
     };
 
-    // Get Order Details
     const getOrderDetails = (orderId) => {
         return orders.find(order => order.orderId === orderId);
     };

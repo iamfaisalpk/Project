@@ -14,13 +14,11 @@ const Register = () => {
         e.preventDefault();
         setError("");
 
-        // Form validation
         if (!username || !email || !password) {
             setError("All fields are required");
             return;
         }
 
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setError("Please enter a valid email address");
@@ -28,14 +26,12 @@ const Register = () => {
         }
 
         try {
-            // Check if email already exists
             const response = await axios.get(`http://localhost:3000/user?email=${email}`);
             if (response.data.length > 0) {
                 setError("Email already exists! Please use a different email.");
                 return;
             }
 
-            // Create new user
             await axios.post("http://localhost:3000/user", {
                 username,
                 email,

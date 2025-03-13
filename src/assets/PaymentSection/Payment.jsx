@@ -8,7 +8,6 @@ const Payment = () => {
     const [cardDetails, setCardDetails] = useState({ cardNumber: "", expiry: "", cvv: "" });
     const [upiId, setUpiId] = useState("");
 
-    // Calculate total price
     const totalPrice = cart.reduce((total, product) => total + product.price * product.quantity, 0);
 
     return (
@@ -137,7 +136,7 @@ const Payment = () => {
                 {/* Confirm Order Button */}
                 <div className="mt-8 text-center">
                     <Link
-                        to={`/order?total=${totalPrice.toFixed(2)}&payment=${paymentMethod}`}
+                        to={`/order-confirmed?total=${totalPrice.toFixed(2)}&payment=${paymentMethod}`}
                         className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
                     >
                         Confirm Order (${totalPrice.toFixed(2)})

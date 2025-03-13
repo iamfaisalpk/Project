@@ -12,19 +12,37 @@
       "username": "hiii",
       "email": "hii@gmail.com",
       "password": "hii",
-      "orders": []
+      "orders": [
+        {
+          "orderId": "ORD-1741847700796",
+          "userId": "6aa9",
+          "date": "2025-03-13T06:35:00.796Z",
+          "status": "Processing",
+          "totalAmount": 360,
+          "items": [
+            {
+              "id": "2",
+              "name": "Adidas Ultraboost Pro",
+              "brand": "Adidas",
+              "price": 180,
+              "category": "Running",
+              "image": "https://m.media-amazon.com/images/I/51N91AA3okL._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Energy-returning cushioning for long runs.",
+              "size": "N/A",
+              "quantity": 2
+            }
+          ],
+          "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450",
+          "paymentMethod": "Card",
+          "shippingMethod": "Standard"
+        }
+      ],
+      "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450"
     },
     {
       "id": "28d8",
       "username": "faisll",
       "email": "faisll@gmail.com",
-      "password": "faa",
-      "orders": []
-    },
-    {
-      "id": "34b7",
-      "username": "faisll",
-      "email": "faa@gmail.com",
       "password": "faa",
       "orders": []
     },
@@ -44,7 +62,7 @@
         {
           "userId": "5c62",
           "date": "2025-03-08T05:06:12.978Z",
-          "status": "Completed",
+          "status": "Shipped",
           "totalAmount": 180,
           "items": [
             {
@@ -83,7 +101,7 @@
         {
           "userId": "5c62",
           "date": "2025-03-12T07:20:23.526Z",
-          "status": "Completed",
+          "status": "Shipped",
           "totalAmount": 280,
           "items": [
             {
@@ -121,7 +139,7 @@
           "orderId": "ORD-1741764185902",
           "userId": "5c62",
           "date": "2025-03-12T07:23:05.902Z",
-          "status": "Processing",
+          "status": "Shipped",
           "totalAmount": 360,
           "items": [
             {
@@ -241,7 +259,7 @@
       "id": "1",
       "name": "Sneakers 2025",
       "brand": "Sneakers",
-      "price": 150,
+      "price": 149,
       "size": [
         7,
         8,
@@ -404,24 +422,6 @@
       "category": "Basketball",
       "image": "https://m.media-amazon.com/images/I/61qaw8YbpZL._AC_UL480_FMwebp_QL65_.jpg",
       "description": "Iconic high-top sneaker for basketball lovers."
-    },
-    {
-      "id": "11",
-      "name": "Adidas NMD R1",
-      "brand": "Adidas",
-      "price": 150,
-      "size": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
-      "category": "Casual",
-      "image": "https://m.media-amazon.com/images/I/61KaL+L5tmL._AC_UL480_FMwebp_QL65_.jpg",
-      "description": "Modern urban sneaker with responsive cushioning."
     },
     {
       "id": "12",

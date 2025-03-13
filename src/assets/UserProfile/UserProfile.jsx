@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
     const { userInfo, orders, logout, updateUserInfo, isLoggedIn } = useCart();
     const [editableInfo, setEditableInfo] = useState(userInfo || { name: "", email: "", address: "" });
-    const [isEditing, setIsEditing] = useState(false); // Profile editing state
+    const [isEditing, setIsEditing] = useState(false); 
     const navigate = useNavigate();
 
     if (!isLoggedIn) {
@@ -18,13 +18,13 @@ const UserProfile = () => {
     };
 
     const handleSaveProfile = () => {
-        updateUserInfo(editableInfo); // Save updated info
-        setIsEditing(false); // Exit editing mode
+        updateUserInfo(editableInfo); 
+        setIsEditing(false); 
     };
 
     const handleLogout = () => {
-        logout(); // Log out user
-        navigate("/home"); // Redirect to homepage
+        logout(); 
+        navigate("/home"); 
     };
 
     return (

@@ -5,17 +5,15 @@ import { useCart } from "../Cart/CartContext";
 const Cart = () => {
     const { cart, removeFromCart, updateQuantity, buyProducts } = useCart();
 
-    // Calculate total price properly
+    
     const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
 
-    // Handle removing item from cart
     const handleRemoveFromCart = (productId, size) => {
         if (window.confirm("Are you sure you want to remove this item?")) {
             removeFromCart(productId, size);
         }
     };
 
-    // Handle quantity update with validation
     const handleQuantityUpdate = (productId, newQuantity) => {
         if (newQuantity > 0) {
             updateQuantity(productId, newQuantity);

@@ -5,13 +5,13 @@ import Navigation from "./Naviagtion";
 
 const Layout = () => {
     const location = useLocation();
-    const isAdminPage = location.pathname.startsWith("/admin"); // Check if the path starts with "/admin"
+    const isAdminPage = location.pathname.startsWith("/admin");
 
     return (
         <>
-            {!isAdminPage && <Navigation />}  {/* Hide Navigation for Admin Pages */}
+            {!isAdminPage && <Navigation />} 
             <Outlet />
-            {!isAdminPage && <Footer />}  {/* Hide Footer for Admin Pages */}
+            {!isAdminPage && <Footer />} 
         </>
     );
 };

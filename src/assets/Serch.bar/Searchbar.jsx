@@ -7,7 +7,7 @@ const SearchBar = () => {
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-        setSearchTerm(e.target.value); // Update search term in context
+        setSearchTerm(e.target.value); 
     };
 
     return (
