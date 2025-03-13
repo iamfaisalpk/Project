@@ -46,7 +46,7 @@ const App = () => {
       children: [
         {path : 'home', element: <Home/>},
         { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
+        { path: 'reg', element: <Register /> },
         { path: 'men', element: <Men /> },
         { path: 'women', element: <Women /> },
         { path: 'products', element: <ProductList searchQuery={searchQuery} /> },

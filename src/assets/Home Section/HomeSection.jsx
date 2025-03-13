@@ -11,7 +11,7 @@ return (
         <img
             src={banner}
             alt="Photo"
-            className="max-w-full h-auto object-cover object-center md:w-[1250px] md:h-[720px]"
+            className="max-w-full h-auto object-cover object-center md:w-[1250px] md:h-screen"
         />
         </div>
 
@@ -28,11 +28,11 @@ return (
         </div>
 
         {/* Buttons */}
-        <div className="absolute top-[65%] left-5 flex flex-col gap-3 sm:flex-row sm:top-[60%] sm:left-[12%] sm:gap-5">
-        <button className="bg-[#ffffff] rounded-[8px] px-4 py-2 text-sm sm:text-base hover:bg-amber-500 hover:text-white">
+        <div className="absolute top-[75%] left-5 flex flex-col gap-3 sm:flex-row sm:top-[70%] sm:left-[12%] sm:gap-5">
+        <button className="bg-white rounded-[8px] px-4 py-2 text-sm sm:text-base hover:bg-amber-500 hover:text-white">
             <Link to="/men">Men</Link>
         </button>
-        <button className="bg-[#ffffff] rounded-[8px] px-4 py-2 text-sm sm:text-base hover:bg-amber-500 hover:text-white">
+        <button className="bg-white rounded-[8px] px-4 py-2 text-sm sm:text-base hover:bg-amber-500 hover:text-white">
             <Link to="/women">Women</Link>
         </button>
         </div>
