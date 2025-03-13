@@ -21,19 +21,22 @@ import AdminProducts from './assets/admin/AdminProductList';
 import AdminOrders from './assets/admin/AdminOrderList';
 import Users from './assets/admin/Users';
 import AdminSidebar from './assets/Admin/Sidebar';
+import AdminLogin from './assets/admin/AdminLogin';
 import { AuthProvider } from './assets/Admin/Authcontext';
 import Editproducts from './assets/admin/Editproducts';
 import Addproducts from './assets/admin/Addproducts';
-import AdminLogin from './assets/admin/AdminLogin';
 
-const AdminLayout = () => (
-  <div className="flex min-h-screen bg-gray-100">
-    <AdminSidebar />
-    <main className="flex-1 p-6 overflow-y-auto">
-      <Outlet />
-    </main>
-  </div>
-);
+const AdminLayout = () => {
+  console.log('AdminLayout rendered');
+  return (
+    <div className="flex min-h-screen bg-gray-100">
+      <AdminSidebar />
+      <main className="flex-1 p-6 overflow-y-auto lg:ml-72">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,7 +47,7 @@ const App = () => {
       element: <Layout setSearchQuery={setSearchQuery} />,
       errorElement: <Error />,
       children: [
-        {path : 'home', element: <Home/>},
+        { path: 'home', element: <Home /> },
         { path: 'login', element: <Login /> },
         { path: 'reg', element: <Register /> },
         { path: 'men', element: <Men /> },
@@ -70,12 +73,12 @@ const App = () => {
           ),
           children: [
             { index: true, element: <Dashboard /> },
-            { path: 'dashboard', element: <Dashboard /> },
-            { path: 'products', element: <AdminProducts /> },
-            { path: 'orders', element: <AdminOrders /> },
-            { path: 'users', element: <Users /> },
-            { path: 'products/edit/:id', element: <Editproducts /> }, 
-            { path: 'products/add', element: <Addproducts /> },      
+            { path: '/admin/dashboard', element: <Dashboard /> },
+            { path: '/admin/products', element: <AdminProducts /> },
+            { path: '/admin/orders', element: <AdminOrders /> },
+            { path: '/admin/users', element: <Users /> },
+            { path: 'products/edit/:id', element: <Editproducts /> },
+            { path: 'products/add', element: <Addproducts /> },
           ],
         },
       ],

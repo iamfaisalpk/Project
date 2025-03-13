@@ -17,7 +17,7 @@
           "orderId": "ORD-1741847700796",
           "userId": "6aa9",
           "date": "2025-03-13T06:35:00.796Z",
-          "status": "Processing",
+          "status": "Cancelled",
           "totalAmount": 360,
           "items": [
             {
@@ -28,6 +28,63 @@
               "category": "Running",
               "image": "https://m.media-amazon.com/images/I/51N91AA3okL._AC_UL480_FMwebp_QL65_.jpg",
               "description": "Energy-returning cushioning for long runs.",
+              "size": "N/A",
+              "quantity": 2
+            }
+          ],
+          "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450",
+          "paymentMethod": "Card",
+          "shippingMethod": "Standard"
+        },
+        {
+          "orderId": "ORD-1741859245858",
+          "userId": "6aa9",
+          "date": "2025-03-13T09:47:25.858Z",
+          "status": "Processing",
+          "totalAmount": 140,
+          "items": [
+            {
+              "id": "3",
+              "name": "Puma RS-X Future",
+              "brand": "Puma",
+              "price": 140,
+              "category": "Casual",
+              "image": "https://m.media-amazon.com/images/I/71UbxjqxjwL._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Stylish sneakers for everyday wear.",
+              "size": "N/A",
+              "quantity": 1
+            }
+          ],
+          "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450",
+          "paymentMethod": "Card",
+          "shippingMethod": "Standard"
+        },
+        {
+          "orderId": "ORD-1741861005572",
+          "userId": "6aa9",
+          "date": "2025-03-13T10:16:45.572Z",
+          "status": "Processing",
+          "totalAmount": 430,
+          "items": [
+            {
+              "id": "3",
+              "name": "Puma RS-X Future",
+              "brand": "Puma",
+              "price": 140,
+              "category": "Casual",
+              "image": "https://m.media-amazon.com/images/I/81Wu69zbe+L._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Stylish sneakers for everyday wear.",
+              "size": "N/A",
+              "quantity": 2
+            },
+            {
+              "id": "8",
+              "name": "Vans Old Skool",
+              "brand": "Vans",
+              "price": 75,
+              "category": "Casual",
+              "image": "https://m.media-amazon.com/images/I/613ole6c-IL._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Signature skateboarding shoe with a timeless design.",
               "size": "N/A",
               "quantity": 2
             }
@@ -251,7 +308,14 @@
           "shippingMethod": "Standard"
         }
       ],
-      "address": "rose illa, selaal, 123, 1234567890"
+      "address": "rose illa, selaal, 123, 1234567890",
+      "isBlocked": false
+    },
+    {
+      "id": "3ae5",
+      "username": "faislla",
+      "email": "faislla@gmail.com",
+      "password": "123456"
     }
   ],
   "products": [
@@ -437,6 +501,14 @@
       "category": "Basketball",
       "image": "https://m.media-amazon.com/images/I/61r9oNywMeL._AC_UL480_FMwebp_QL65_.jpg",
       "description": "Performance basketball shoes with a classic look."
+    },
+    {
+      "id": "52c5",
+      "name": "nike",
+      "price": "60",
+      "description": "nj ",
+      "category": "sport",
+      "imageUrl": " https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c25lYWtlcnxlbnwwfHwwfHx8MA%3D%3D"
     }
   ],
   "womens": [

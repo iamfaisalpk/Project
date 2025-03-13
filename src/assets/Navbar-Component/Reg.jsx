@@ -26,13 +26,13 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:3000/user?email=${email}`);
+            const response = await axios.get(`http://localhost:3000/users?email=${email}`);
             if (response.data.length > 0) {
                 setError("Email already exists! Please use a different email.");
                 return;
             }
 
-            await axios.post("http://localhost:3000/user", {
+            await axios.post("http://localhost:3000/users", {
                 username,
                 email,
                 password,

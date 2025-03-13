@@ -33,7 +33,7 @@ const AdminLogin = () => {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="--@gmail.com"
+                        placeholder="---"
                         className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                         required
                     />

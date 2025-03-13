@@ -111,21 +111,19 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {users
-              .filter((user) => user.email !== 'admin@gmail.com') // Filter out admin@gmail.com
-              .map((user) => {
-                const userTotalAmount = (user.orders || []).reduce(
-                  (sum, order) => sum + (order.totalAmount || 0),
-                  0
-                );
-                return (
-                  <tr key={user.id} className="border-t border-orange-200">
-                    <td className="p-2 text-gray-700">{user.username}</td>
-                    <td className="p-2 text-gray-700">{user.email}</td>
-                    <td className="p-2 text-orange-600">${userTotalAmount.toFixed(2)}</td>
-                  </tr>
-                );
-              })}
+            {users.map((user) => {
+              const userTotalAmount = (user.orders || []).reduce(
+                (sum, order) => sum + (order.totalAmount || 0),
+                0
+              );
+              return (
+                <tr key={user.id} className="border-t border-orange-200">
+                  <td className="p-2 text-gray-700">{user.username}</td>
+                  <td className="p-2 text-gray-700">{user.email}</td>
+                  <td className="p-2 text-orange-600">${userTotalAmount.toFixed(2)}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
