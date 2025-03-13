@@ -64,7 +64,7 @@ const ProductList = () => {
                                     onClick={() => addToCart(product)}
                                     disabled={!isLoggedIn}
                                 >
-                                    {isLoggedIn ? 'Add to Cart' : 'Login to Add'}
+                                    {isLoggedIn ? 'Buy Product' : 'Login to Add'}
                                 </button>
                             )}
                             
