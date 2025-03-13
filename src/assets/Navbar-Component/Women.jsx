@@ -52,7 +52,7 @@ const Women = () => {
                                         addToCart({ ...product, size: defaultSize, quantity: 1 })
                                     }
                                 >
-                                    Add to Cart
+                                    Buy Product
                                 </button>
                             )}
 
