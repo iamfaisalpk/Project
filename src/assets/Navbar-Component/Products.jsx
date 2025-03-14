@@ -7,7 +7,6 @@ const ProductList = () => {
     
     const isInCart = (productId) => cart.some((item) => item.id === productId);
     
-    
     const handleRemoveFromCart = (productId) => {
         if (window.confirm("Are you sure you want to remove this item from the cart?")) {
             const cartItem = cart.find(item => item.id === productId);
@@ -15,6 +14,12 @@ const ProductList = () => {
                 removeFromCart(productId, cartItem.size);
             }
         }
+    };
+    
+    const formatPrice = (price) => {
+        const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+        
+        return !isNaN(numPrice) ? numPrice.toFixed(2) : '0.00';
     };
     
     return (
@@ -49,7 +54,7 @@ const ProductList = () => {
                                 />
                             </Link>
                             <h3 className="text-lg font-bold mt-2">{product.name}</h3>
-                            <p className="text-gray-600">Price: ${product.price.toFixed(2)}</p>
+                            <p className="text-gray-600">Price: ${formatPrice(product.price)}</p>
                             
                             {isInCart(product.id) ? (
                                 <button

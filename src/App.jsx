@@ -22,9 +22,9 @@ import AdminOrders from './assets/admin/AdminOrderList';
 import Users from './assets/admin/Users';
 import AdminSidebar from './assets/Admin/Sidebar';
 import AdminLogin from './assets/admin/AdminLogin';
-import { AuthProvider } from './assets/Admin/Authcontext';
 import Editproducts from './assets/admin/Editproducts';
 import Addproducts from './assets/admin/Addproducts';
+import { AuthProvider } from './assets/Admin/AuthContext';
 
 const AdminLayout = () => {
   console.log('AdminLayout rendered');
@@ -49,7 +49,7 @@ const App = () => {
       children: [
         { path: 'home', element: <Home /> },
         { path: 'login', element: <Login /> },
-        { path: 'reg', element: <Register /> },
+        { path: 'reg', element: <Register /> }, 
         { path: 'men', element: <Men /> },
         { path: 'women', element: <Women /> },
         { path: 'products', element: <ProductList searchQuery={searchQuery} /> },
