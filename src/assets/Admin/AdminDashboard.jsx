@@ -10,7 +10,6 @@ const Dashboard = () => {
   });
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [womens, setWomens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,22 +34,19 @@ const Dashboard = () => {
         const totalSales = allOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
         const totalRevenue = totalSales * 0.10;
 
-        return Promise.all([
-          fetch('http://localhost:3000/products').then((res) => res.json()),
-          fetch('http://localhost:3000/womens').then((res) => res.json()),
-        ]).then(([productsData, womensData]) => ({
-          productsData,
-          womensData,
-          totalUsers,
-          totalOrders,
-          totalSales,
-          totalRevenue,
-        }));
+        return fetch('http://localhost:3000/products')
+          .then((res) => res.json())
+          .then((productsData) => ({
+            productsData,
+            totalUsers,
+            totalOrders,
+            totalSales,
+            totalRevenue,
+          }));
       })
-      .then(({ productsData, womensData, totalUsers, totalOrders, totalSales, totalRevenue }) => {
+      .then(({ productsData, totalUsers, totalOrders, totalSales, totalRevenue }) => {
         setProducts(productsData);
-        setWomens(womensData);
-        const totalProducts = new Set([...productsData, ...womensData].map((item) => item.id)).size;
+        const totalProducts = productsData.length; // Changed to simply use products length
         setDashboardData({
           totalUsers,
           totalOrders,

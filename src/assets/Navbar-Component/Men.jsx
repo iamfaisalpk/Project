@@ -17,7 +17,7 @@ const Men = () => {
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-bold text-center mb-6">Our Products</h1>
+            <h1 className="text-2xl font-bold text-center mb-6">Men's Products</h1>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {products.map((product) => (
                     <li key={product.id} className="bg-white p-4 rounded-lg shadow-lg transition hover:scale-105">
@@ -47,13 +47,6 @@ const Men = () => {
                                 Add to Cart
                             </button>
                         )}
-
-                        <Link
-                            to="/cart"
-                            className="block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full text-center mt-2"
-                        >
-                            Go to Cart
-                        </Link>
                     </li>
                 ))}
             </ul>

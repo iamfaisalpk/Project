@@ -33,7 +33,7 @@ const ProductList = () => {
                     placeholder="Search products..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
             </div>
             
@@ -72,19 +72,12 @@ const ProductList = () => {
                                     {isLoggedIn ? 'Buy Product' : 'Login to Add'}
                                 </button>
                             )}
-                            
-                            <Link
-                                to={isLoggedIn ? "/cart" : "/login"}
-                                className="block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full text-center mt-2"
-                            >
-                                {isLoggedIn ? 'View Cart' : 'Login to View Cart'}
-                            </Link>
                         </li>
                     ))}
                 </ul>
             )}
         </div>
     );
-};
+}; 
 
 export default ProductList;
