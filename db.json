@@ -347,7 +347,8 @@
           "shippingMethod": "Standard"
         }
       ],
-      "address": "Rose villa, minicity ,kottakka, 56431, 1230987654"
+      "address": "Rose villa, minicity ,kottakka, 56431, 1230987654",
+      "isBlocked": false
     }
   ],
   "products": [
