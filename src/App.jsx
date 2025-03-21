@@ -24,7 +24,7 @@ import AdminSidebar from './assets/Admin/Sidebar';
 import AdminLogin from './assets/admin/AdminLogin';
 import Editproducts from './assets/admin/Editproducts';
 import Addproducts from './assets/admin/Addproducts';
-import { AuthProvider } from './assets/admin/AuthContext';
+import { AuthProvider } from './assets/Admin/AuthContext';
 
 
 
