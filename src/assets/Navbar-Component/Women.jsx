@@ -10,7 +10,6 @@ const Women = () => {
     useEffect(() => {
         axios.get("http://localhost:3000/products")
             .then((response) => {
-                
                 const womenProducts = response.data.filter(
                     (product) => product.category?.toLowerCase() === "women"
                 );
