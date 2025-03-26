@@ -172,7 +172,7 @@ return (
                 src={product.imageUrl}
                 alt="Product preview"
                 className="max-w-xs h-auto rounded-lg shadow-md"
-                  onError={(e) => (e.target.style.display = 'none')} 
+                onError={(e) => (e.target.style.display = 'none')} 
                 />
             </div>
             )}
