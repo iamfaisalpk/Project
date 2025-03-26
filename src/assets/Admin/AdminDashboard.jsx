@@ -46,7 +46,7 @@ const Dashboard = () => {
       })
       .then(({ productsData, totalUsers, totalOrders, totalSales, totalRevenue }) => {
         setProducts(productsData);
-        const totalProducts = productsData.length; // Changed to simply use products length
+        const totalProducts = productsData.length; 
         setDashboardData({
           totalUsers,
           totalOrders,
