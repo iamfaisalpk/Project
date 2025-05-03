@@ -382,6 +382,12 @@
         }
       ],
       "address": "anfas villa, kottakal, 76501, 1234567891"
+    },
+    {
+      "id": "6eb8",
+      "username": "fasil",
+      "email": "fasil@gmail.com",
+      "password": "123fasil"
     }
   ],
   "products": [
