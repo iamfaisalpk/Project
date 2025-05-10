@@ -4,7 +4,6 @@ import React from 'react';
 const Error = () => {
   return (
     <>
-      
       <main className="min-h-screen bg-gradient-to-tr from-gray-900 via-red-800 to-red-600 flex items-center justify-center px-6 py-12">
         <div className="max-w-2xl w-full bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 text-center transform transition-all hover:shadow-3xl duration-500">
           {/* Error Image Placeholder */}

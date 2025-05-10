@@ -63,10 +63,12 @@ const App = () => {
         { path: 'order-confirmed', element: <OrderConfirmed /> },
         { path: 'profile', element: <UserProfile /> },
         { path: 'orders', element: <OrderHistory /> },
-        { path: 'success', element: <Success /> },
-        { path: 'failed', element: <Failed /> },
       ],
     },
+    
+      { path: 'success/:orderId', element: <Success /> },
+        { path: 'failed/:orderId', element: <Failed /> },
+    
     {
       path: '/admin',
       children: [
