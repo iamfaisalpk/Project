@@ -25,6 +25,8 @@ import AdminLogin from './assets/admin/AdminLogin';
 import Editproducts from './assets/admin/Editproducts';
 import Addproducts from './assets/admin/Addproducts';
 import { AuthProvider } from './assets/Admin/AuthContext';
+import Success from './assets/Success & Failed/Success';
+import Failed from './assets/Success & Failed/Failed';
 
 
 
@@ -61,6 +63,8 @@ const App = () => {
         { path: 'order-confirmed', element: <OrderConfirmed /> },
         { path: 'profile', element: <UserProfile /> },
         { path: 'orders', element: <OrderHistory /> },
+        { path: 'succes', element: <Success /> },
+        { path: 'failed', element: <Failed /> },
       ],
     },
     {
