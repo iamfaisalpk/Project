@@ -63,7 +63,7 @@ const App = () => {
         { path: 'order-confirmed', element: <OrderConfirmed /> },
         { path: 'profile', element: <UserProfile /> },
         { path: 'orders', element: <OrderHistory /> },
-        { path: 'succes', element: <Success /> },
+        { path: 'success', element: <Success /> },
         { path: 'failed', element: <Failed /> },
       ],
     },
