@@ -443,6 +443,38 @@
         }
       ],
       "address": "urinikulam, pokotor,malappram, 676517, 9744678050"
+    },
+    {
+      "id": "fe42",
+      "username": "immu",
+      "email": "immu@gmail.com",
+      "password": "123456",
+      "orders": [
+        {
+          "orderId": "ORD-1747503123189",
+          "userId": "fe42",
+          "date": "2025-05-17T17:32:03.189Z",
+          "status": "Processing",
+          "totalAmount": 150,
+          "items": [
+            {
+              "id": "13",
+              "name": "Sneakers 2025",
+              "brand": "Sneakers",
+              "price": 150,
+              "category": "women",
+              "image": "https://m.media-amazon.com/images/I/8160qTc8+lL._AC_UL480_FMwebp_QL65_.jpg",
+              "description": "Lightweight and comfortable running shoes.",
+              "size": "N/A",
+              "quantity": 1
+            }
+          ],
+          "address": "chappanagadi, chappanagadi kuriyad rod, 65781, 123467980",
+          "paymentMethod": "Card",
+          "shippingMethod": "Standard"
+        }
+      ],
+      "address": "chappanagadi, chappanagadi kuriyad rod, 65781, 123467980"
     }
   ],
   "products": [
