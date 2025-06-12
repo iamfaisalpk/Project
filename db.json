@@ -118,7 +118,8 @@
           "shippingMethod": "Standard"
         }
       ],
-      "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450"
+      "address": "ironvila, mini city ,in ,kottakal, 56701, 1236789450",
+      "isBlocked": false
     },
     {
       "id": "28d8",
